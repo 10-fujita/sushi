@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <!-- meta要素の部品化 -->
+  <div th:fragment="meta" th:remove="tag"><!-- th:remove="tag"は、この <div> タグ自体を削除し、中身だけ貼り付けるという命令 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no"><!-- モバイルデバイスで閲覧する際、電話番号を自動的に検出しないようにする -->
+    <meta name="description" content="【寿司処リカレント】お寿司の出前・デリバリー・配達の注文なら、宅配寿司の「寿司処リカレント」で。お家からネットで簡単に注文できます。">
+  </div>
+  <!-- link要素の部品化 -->
+  <div th:fragment="styles" th:remove="tag">
+    <!-- favicon -->
+    <link rel="icon" th:href="@{/images/favicon.ico}">
+    <!-- font awesome -->
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css}">
+    <!-- Reset CSS -->
+    <link rel="stylesheet" th:href="@{/css/html5reset-1.6.1.css}">
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+  </div>
+  <title>共通化用のHTMLファイル</title>
+</head>
+
+<body>
+  <!-- header要素の部品化 -->
+  <div th:fragment="header" th:remove="tag">
+    <header>
+      <h1><a th:href="@{/}"><img class="hd_logo" th:src="@{/images/hd_logo.png}" alt="宅配寿司 寿司処リカレント"></a></h1>
+      <div class="hd_copy">
+        <p class="hd_copy01">今日はおうちで、ちょっと贅沢。</p>
+        <p>家族みんなで楽しめる宅配寿司。</p>
+      </div>
+    </header><!-- ヘッダー END -->
+  </div>
+  <!-- nav要素の部品化 -->
+  <div th:fragment="nav" th:remove="tag">
+    <!-- ナビゲーション -->
+    <nav>
+      <ul>
+        <li><a th:href="@{/cart}" class="nav_cart">カート</a></li>
+        <li><a th:href="@{/product}" class="nav_product">商品一覧</a></li>
+        <!-- ▼ 未ログインで表示 -->
+        <li sec:authorize="isAnonymous()"><a th:href="@{auth/login}" class="nav_login">会員登録/ログイン</a></li>
+        <!-- ▼ ログイン済みで表示 -->
+        <li sec:authorize="isAuthenticated()">
+          <a th:href="@{/mypage}" class="nav_log_mypageoff"
+            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            マイページ
+          </a>
+          <form id="logout-form" class="d-none" th:action="@{/mypage}" method="get"></form>
+        </li>
+        <li><a th:href="@{/review}" class="nav_voice">お客様のご意見/ご感想</a></li>
+      </ul>
+    </nav><!-- ナビゲーション END -->
+  </div>
+
+  <!-- footer要素の部品化 -->
+  <div th:fragment="footer" th:remove="tag">
+    <!-- フッター -->
+    <footer>
+      <div class="ft_sitemap">
+        <ul class="smul01">
+          <li><a th:href="@{/}">初めての方へ</a></li>
+          <li><a th:href="@{/cart}">カート</a></li>
+          <li><a th:href="@{/product}">商品一覧</a></li>
+          <!-- ▼ 未ログインで表示 -->
+          <li sec:authorize="isAnonymous()"><a th:href="@{auth/login}">会員登録/ログイン</a></li>
+          <!-- ▼ ログイン済みで表示 -->
+          <li sec:authorize="isAuthenticated()">
+            <a th:href="@{/mypage}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+              マイページ
+            </a>
+            <form id="logout-form" class="d-none" th:action="@{/logout}" method="post"></form>
+          </li>
+          <li><a th:href="@{/review}">お客様のご意見/ご感想</a></li>
+        </ul>
+        <ul>
+          <li><a th:href="@{/}">サイトマップ</a></li>
+          <li><a th:href="@{/}">お問い合わせ</a></li>
+          <li><a th:href="@{/}">ご利用規約</a></li>
+          <li><a th:href="@{/}">特定商取引表示</a></li>
+        </ul>
+      </div>
+      <div class="ft_copy">
+        <small>&copy;SUSHIDOKORO RECURRENT CO.,LTD.ALL RIGHTS RESERVED.</small>
+      </div>
+    </footer>
+    <!-- フッター END -->
+  </div>
+</body>
+
+</html>

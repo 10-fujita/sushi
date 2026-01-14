@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <div th:replace="~{comlayout/base :: meta}"></div>
+  <div th:replace="~{comlayout/base :: styles}"></div>
+  <link rel="stylesheet" th:href="@{/css/mypage.css}">
+  <title>注文履歴 | マイページ | 寿司処リカレント</title>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="inner" id="unique_mypage_area">
+      <div th:replace="~{comlayout/base :: header}"></div>
+      <div th:replace="~{comlayout/base :: nav}"></div>
+
+      <main>
+        <h2 class="mn_h201">注文履歴</h2>
+        <ol class="mn_pankuzu">
+          <li><a th:href="@{/}">TOPページ</a></li>
+          <li><a th:href="@{/mypage}">マイページ</a></li>
+          <li>注文履歴</li>
+        </ol>
+
+        <div class="sig_formarea">
+          <div th:if="${#lists.isEmpty(orders)}" class="no_data_msg">
+            <p>ご注文履歴はありません。</p>
+          </div>
+
+          <div th:each="order : ${orders}" class="order_history_card">
+            <div class="order_header">
+              <span class="order_date" th:text="${#temporals.format(order.orderDatetime, 'yyyy/MM/dd HH:mm')} + ' のご注文'"></span>
+              <span class="order_status" th:classappend="${order.status}" 
+                    th:text="${order.status == 'COMPLETED' ? 'お届け済み' : 'お届け前'}"></span>
+            </div>
+
+            <div class="order_body">
+              <div class="order_items">
+                <p class="order_label">ご注文内容：</p>
+                <ul>
+                  <li th:each="item : ${order.items}">
+                    <span th:text="${item.productName}"></span> × <span th:text="${item.quantity}"></span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="order_details">
+                <p>合計金額：<span class="total_price" th:text="${#numbers.formatInteger(order.totalAmount, 1, 'COMMA')} + '円'"></span></p>
+                <p>お届け先：<span th:text="${order.shippingPrefecture} + ${order.shippingCity} + ${order.shippingAddressLine1}"></span></p>
+                <p th:if="${order.deliveryDate != null}">
+                  お届け日時：<span th:text="${#temporals.format(order.deliveryDate, 'MM月dd日')}"></span> 
+                  <span th:text="${order.deliveryTimeSlot}"></span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="sig_form_btn" style="margin-top: 40px;">
+            <a th:href="@{/mypage}" class="btn_back">マイページへ戻る</a>
+          </div>
+        </div>
+      </main>
+    </div>
+    <div th:replace="~{comlayout/base :: footer}"></div>
+  </div>
+</body>
+</html>

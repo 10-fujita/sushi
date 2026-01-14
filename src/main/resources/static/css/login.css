@@ -1,0 +1,94 @@
+@charset "UTF-8";
+
+/* フォーム
+-----------------------------------------------*/
+
+.log_area {
+  width: 60%;
+  margin-inline: auto;
+}
+
+/* エラー */
+.log_error {
+  font-weight: bold;
+  color: #CE0000;
+  text-align: center;
+}
+
+.log_form {
+  margin-bottom:30px;
+}
+
+.log_form p {
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.log_form input{
+    width: 100%;
+    height: 40px;
+    padding: 0 8px;
+    border: 2px solid #CCC;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+
+
+/* 会員情報を編集 ボタン */
+
+.sig_form_btn{
+  text-align:center;
+}
+
+.sig_form_btn button{
+  width: 260px;
+  height: 60px;
+  line-height: 30px;
+  font-size: 18px;
+  display: inpine-block;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 8px;
+  box-sizing: border-box;
+  text-align: center;
+  padding:0px 30px;
+  background-color: #E8A509;
+  border: 1px solid #E8A509;
+  color: white;
+  position: relative;
+}
+
+.sig_form_btn a{
+  width: 260px;
+  height: 60px;
+  line-height: 60px;
+  font-size: 18px;
+  display: inline-block;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 8px;
+  box-sizing: border-box;
+  text-align: center;
+  padding:0px 30px;
+  background-color: #fff;
+  border: 2px solid #E8A509;
+  color: #E8A509;
+  position: relative;
+}
+
+.sig_form_btn button:hover,
+.sig_form_btn a:hover {
+  opacity: 0.7;
+}
+
+.sig_form_btn {
+  display: flex;
+  justify-content: center; /* 中央寄せ */
+  gap: 60px;              /* ボタン間の余白 */
+  margin-top: 30px;
+}
+
+.sig_form_btn p {
+  margin: 0; /* pのデフォルト余白を消す */
+}

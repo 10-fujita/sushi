@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <div th:replace="~{comlayout/base :: meta}"></div>
+    <div th:replace="~{comlayout/base :: styles}"></div>
+    <!-- Original CSS -->
+    <link rel="stylesheet" th:href="@{/css/mypage.css}">
+    <title>会員情報を編集 | マイページ | 宅配寿司 寿司処リカレント | お寿司の出前・デリバリー・配達注文</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="inner" id="unique_mypage_area">
+
+            <div th:replace="~{comlayout/base :: header}"></div>
+            <div th:replace="~{comlayout/base :: nav}"></div>
+
+            <!-- メイン -->
+            <main>
+                <h2 class="mn_h201">マイページ　編集内容の確認</h2>
+                <ol class="mn_pankuzu">
+                    <li><a th:href="@{/}">TOPページ</a></li>
+                    <li><a th:href="@{/mypage}">マイページ</a></li>
+                    <li>会員情報を編集</li>
+                </ol>
+
+                <div class="sig_formarea">
+
+                    <!-- フロー図 -->
+                    <div class="progressbar">
+                        <div class="item active">STEP.1<br>会員情報を編集</div>
+                        <div class="item">STEP.2<br>ご確認</div>
+                        <div class="item">STEP.4<br>完了(マイページへ)</div>
+                    </div>
+
+                    <form th:action="@{/mypage/editpro}" method="post" th:object="${userUpdateForm}">
+                        <div class="sig_form_txt">
+                            <label>お名前<span class="form_required">必須</span></label>
+                            <input type="text" th:field="*{name}">
+                            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="form_error"></p>
+                        </div>
+
+                        <div class="sig_form_txt">
+                            <label>メールアドレス<span class="form_required">必須</span></label>
+                            <input type="text" th:field="*{email}">
+                            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="form_error"></p>
+                        </div>
+
+                        <div class="sig_form_txt">
+                            <label>電話番号</label>
+                            <input type="tel" th:field="*{phoneNumber}">
+                        </div>
+
+                        <div class="address_display_box">
+                            <p class="address_box_title">現在のご登録住所</p>
+                            <div th:each="addr : ${addressList}" class="address_item_card">
+                                <p>
+                                    <span class="zip_mark">〒</span><span th:text="${addr.postalCode}"></span><br>
+                                    <span th:text="${addr.prefecture}"></span>
+                                    <span th:text="${addr.city}"></span>
+                                    <span th:text="${addr.addressLine1}"></span>
+                                    <span th:text="${addr.addressLine2 != null ? addr.addressLine2 : ''}"></span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="new_address_notice">
+                            <p><i class="fas fa-info-circle"></i> 上記の住所以外をご利用の方は、下記に新しい住所をご入力ください。</p>
+                        </div>
+
+                        <div class="sig_form_txt">
+                            <label>郵便番号<span class="form_required">必須</span></label>
+                            <input type="tel" th:field="*{postalCode}" id="ybbg">
+                            <span id="ybbgError" class="form_error" style="color:red; display:block; font-size: 0.8em; margin-top: 5px;"></span>
+                        </div>
+
+                        <div class="sig_form_txt">
+                            <label>都道府県<span class="form_required">必須</span></label>
+                            <input type="text" th:field="*{prefecture}" id="tdhnm" autocomplete="off">
+                        </div>
+
+                        <div class="sig_form_txt">
+                            <label>市区町村<span class="form_required">必須</span></label>
+                            <input type="text" th:field="*{city}" id="adr1" autocomplete="off">
+                        </div>
+
+                        <div class="sig_form_txt">
+                            <label>番地<span class="form_required">必須</span></label>
+                            <input type="text" th:field="*{addressLine1}" id="adr2" autocomplete="off">
+                        </div>
+
+                        <div class="sig_form_txt">
+                            <label>建物名、部屋番号</label>
+                            <input type="text" th:field="*{addressLine2}">
+                        </div>
+
+                        <div class="sig_form_btn">
+                            <button type="submit">確認画面へ<i class="fas fa-angle-double-right fa-position-left"></i></button>
+                        </div>
+                    </form>
+
+                </div>
+
+            </main><!-- メイン END -->
+        </div><!-- inner END -->
+
+
+        <div th:replace="~{comlayout/base :: footer}"></div>
+
+
+
+    </div><!-- wrapper END -->
+    <!--jquery-->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <!--original-->
+    <script th:src="@{/js/ybbg.js}"></script>
+</body>
+
+</html>

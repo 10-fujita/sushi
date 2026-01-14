@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+  <div th:replace="~{comlayout/base :: meta}"></div>
+  <div th:replace="~{comlayout/base :: styles}"></div>
+  <!-- Original CSS -->
+  <link rel="stylesheet" th:href="@{/css/signup.css}">
+  <title>登録内容確認 新規会員登録 | 宅配寿司 寿司処リカレント | お寿司の出前・デリバリー・配達注文</title>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="inner" id="unique_signup_area">
+
+      <div th:replace="~{comlayout/base :: header}"></div>
+      <div th:replace="~{comlayout/base :: nav}"></div>
+
+      <!-- メイン -->
+      <main>
+        <h2 class="mn_h201">新規会員登録 登録内容確認</h2>
+        <ol class="mn_pankuzu">
+          <li><a th:href="@{/}">TOPページ</a></li>
+          <li><a th:href="@{/login}">新規会員登録</a></li>
+          <li>登録内容確認</li>
+        </ol>
+
+        <div class="sig_formarea">
+
+          <!-- フロー図 -->
+          <div class="progressbar">
+            <div class="item">STEP.1<br>登録情報のご入力</div>
+            <div class="item active">STEP.2<br>ご確認</div>
+            <div class="item">STEP.3<br>完了(マイページへ)</div>
+          </div>
+
+          <form th:action="@{/auth/save}" method="post">
+            <!-- お名前 -->
+            <div class="sig_form_txt">
+              <label>お名前<span class="form_required">必須</span></label>
+              <span th:text="${registForm.name }"></span>
+            </div>
+
+            <!-- メールアドレス -->
+            <div class="sig_form_txt">
+              <label>メールアドレス<span class="form_required">必須</span></label>
+            <span th:text="${registForm.email }"></span>
+            </div>
+
+            <!-- パスワード -->
+            <div class="sig_form_txt">
+              <label>パスワード<span class="form_required">必須</span></label>
+              4文字以上の任意のパスワード
+              <p class="form_attention">半角英数4文字以上で入力してください。</p>
+            </div>
+
+            <!-- 電話番号 -->
+            <div class="sig_form_txt">
+              <label>電話番号</label>
+              <span th:text="${registForm.phoneNumber }"></span>
+            </div>
+
+            <!-- 郵便番号 -->
+            <div class="sig_form_txt">
+              <label>郵便番号<span class="form_required">必須</span></label>
+              <span th:text="${registForm.postalCode }"></span>
+            </div>
+
+            <!-- 都道府県 -->
+            <div class="sig_form_txt">
+              <label>都道府県<span class="form_required">必須</span></label>
+             <span th:text="${registForm.prefecture }"></span>
+            </div>
+
+            <!-- 住所１ -->
+            <div class="sig_form_txt">
+              <label>市区町村<span class="form_required">必須</span></label>
+              <span th:text="${registForm.city }"></span>
+            </div>
+            
+            <!-- 住所２ -->
+            <div class="sig_form_txt">
+              <label>番地<span class="form_required">必須</span></label>
+              <span th:text="${registForm. addressLine1 }"></span>
+            </div>
+
+            <!-- 住所３ -->
+            <div class="sig_form_txt">
+              <label>建物名、部屋番号</label>
+              <span th:text="${registForm. addressLine2 }"></span>
+            </div>
+
+            <!-- DM通知設定 -->
+            <div class="sig_form_txt">
+              <label>DMの受信設定<span class="form_required">必須</span></label>
+             <span th:text="${registForm. dmOptIn == true ? '受信する' : '受信しない' }"></span>
+            </div>
+
+            <div class="sig_form_btn">
+              <p class="btn_left">
+                <a th:href="@{/auth/correct}">修正する<i class="fas fa-angle-double-left fa-position-right"></i></a>
+              </p>
+              <p>
+                <button type="submit">登録を完了する<i class="fas fa-angle-double-right fa-position-left"></i></button>
+              </p>
+            </div>
+        </div>
+        </form>
+
+      </main><!-- メイン END -->
+    </div><!-- inner END -->
+
+
+
+<div th:replace="~{comlayout/base :: footer}"></div>
+  </div><!-- wrapper END -->
+</body>
+
+</html>

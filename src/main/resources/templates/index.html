@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+  <div th:replace="~{comlayout/base :: meta}"></div>
+  <div th:replace="~{comlayout/base :: styles}"></div>
+  <!-- Original CSS -->
+  <link rel="stylesheet" th:href="@{/css/index.css}">
+  <title>宅配寿司 寿司処リカレント | お寿司の出前・デリバリー・配達注文</title>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="inner">
+
+      <div th:replace="~{comlayout/base :: header}"></div>
+      <div th:replace="~{comlayout/base :: nav}"></div>
+
+      <!-- メイン -->
+      <main>
+        <div class="index_main">
+          <img th:src="@{/images/idx_main01.jpg}" alt="寿司処リカレントだからできる作り置きなし！毎日新鮮なお寿司をお手頃価格でご自宅にお届けします。">
+        </div>
+
+        <div class="idx_buttons">
+          <a th:href="@{/auth/sign-up}"><img th:src="@{/images/idx_btn_newuser01.png}"></a>
+          <a th:href="@{/product}"><img th:src="@{/images/idx_btn_product01.png}"></a>
+        </div>
+
+        <div class="idx_voice_wrap">
+          <h2>お客様のご意見／ご感想</h2>
+          <div class="idx_voice_in">
+            <table>
+              <tr th:each="voice : ${voiceList}">
+                <th><img th:src="@{/images/voc_dicon01.jpg}" alt="ユーザー名01"></th>
+                <td>
+                  <p th:text="${voice.comment}">コメント本文</p>
+                </td>
+              </tr>
+            </table>
+          </div><!-- idx_voice_in  -->
+        </div><!-- idx_voice_wrap  -->
+      </main><!-- メイン END -->
+    </div><!-- inner END -->
+
+
+    <div th:replace="~{comlayout/base :: footer}"></div>
+
+
+  </div><!-- wrapper END -->
+</body>
+
+</html>

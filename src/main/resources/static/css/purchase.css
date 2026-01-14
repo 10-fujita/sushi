@@ -1,0 +1,378 @@
+@charset "UTF-8";
+
+/* フロー図
+-----------------------------------------------*/
+.progressbar {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom:50px;
+}
+
+.progressbar .item {
+    position: relative;
+    width: 25%;
+    text-align: center;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    padding: 13px 0;
+    line-height: 1.5;
+    background: #F5F5F5;
+    color: #999999;
+}
+
+.progressbar .item:not(:last-child)::before,
+.progressbar .item:not(:last-child)::after {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    bottom: 0;
+    left: 100%;
+    content: '';
+    border: 37px solid transparent;
+    border-left: 20px solid #F5F5F5;
+    margin: auto;
+}
+.progressbar .item:not(:last-child)::before {
+    margin-left: 1px;
+    border-left-color: #FFF;
+}
+
+@media screen and (max-width: 767px) {
+.progressbar .item {
+    font-size: 11px;
+    line-height: 1.4;
+    padding: 10px 0;
+}
+.progressbar .item:not(:last-child)::before,
+.progressbar .item:not(:last-child)::after {
+    border-width: 25px;
+    border-left-width: 12px;
+}
+}
+
+/* active */
+.progressbar .item.active {
+    z-index: 1;
+    background: #CE0000;
+    color: #FFF;
+}
+.progressbar .item.active:not(:last-child)::after {
+    border-left-color: #CE0000;
+}
+.progressbar .item.active:not(:last-child)::before {
+    border-left: none;
+}
+
+
+
+/* 全体
+-----------------------------------------------*/
+.cart_wrap{
+    background-color: #fff;
+    padding: 50px;
+    border-radius: 10px;
+    margin-bottom: 50px;
+}
+
+.purchase_in_area01,
+.purchase_in_area02 {
+    margin-bottom: 50px;
+}
+
+/* 見出し */
+.purchase_in_area01 h3,
+.purchase_in_area02 h3{
+    padding: 1rem 2rem;
+    border-left: 5px solid #CE0000;
+    border-bottom: 1px solid #CE0000;
+    margin-bottom: 15px;
+}
+
+.purchase_in_area02 h3 {
+    margin-bottom: 30px;
+}
+/* テーブル
+-----------------------------------------------*/
+.purchase_in_area01 table {
+    width: 100%;
+}
+
+.purchase_in_area01 th {
+    width:210px;
+    color: #FFF;
+    background-color: #CE0000;
+    vertical-align: middle;
+    padding: 20px 0px;
+    border: 1px solid #CCCCCC;
+    line-height: 2;
+}
+
+.purchase_in_area01 td {
+    vertical-align: middle;
+    padding: 20px 20px;
+    border: 1px solid #CCCCCC;
+}
+
+.purchase_in_area01 td p input{
+    width: 450px;
+    padding:5px 3px;
+}
+
+.purchase_in_area01 td p label {
+    width: 100px;
+    display: inline-block;
+}
+
+
+/* ラジオボタンを非表示にして、カスタムスタイルを適用 */
+input[type="radio"] {
+    display: none;
+}
+/* テーブルのラジオボタン用セルにスタイルを追加 */
+td:last-child {
+    text-align: center;
+    vertical-align: middle;
+}
+/* カスタムラベル風のボタンを作る */
+input[type="radio"] + label {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 2px solid #CE0000;;
+    border-radius: 20px;
+    background-color: #fff;
+    color: #CE0000;;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+/* 選択されたときのスタイル */
+input[type="radio"]:checked + label {
+    background-color: #CE0000;; color: #fff;
+}
+/* テーブル内のラジオボタンにラベルを適用するための調整 */
+td input[type="radio"] {
+    display: none;
+}
+td input[type="radio"] + label::before {
+    content: "●";
+    display: inline-block;
+    margin-right: 8px;
+    color: transparent;
+    transition: color 0.3s;
+}
+td input[type="radio"]:checked + label::before {
+    color: #fff;
+}
+
+
+
+/* ボタン
+-----------------------------------------------*/
+.cart_btnarea {
+    width: 650px;
+    margin-inline: auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.cart_btnarea a{
+    width: 250px;
+    display: inline-block;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+}
+
+.btn_product a {
+    text-align: center;
+    line-height: 70px;
+    height: 70px;
+    border: 2px solid #CE0000;
+    background-color: white;
+    color: #CE0000;
+    transition: background-color 0.3s, color 0.3s;
+    position: relative;
+}
+
+.btn_product a:hover {
+    opacity: 0.7;
+}
+
+.btn_purchase a {
+    box-sizing: border-box;
+    text-align: center;
+    line-height: 70px;
+    height: 70px;
+    background-color: #CE0000;
+    color: white;
+    transition: background-color 0.3s, color 0.3s;
+    position: relative;
+}
+
+.btn_purchase a:hover {
+    opacity: 0.7;
+}
+
+.fa-position-right {
+    color: #CE0000;
+    position: absolute;
+    top: 50%;
+    left: 4.0rem;
+    transform: translateY(-50%);
+}
+
+.fa-position-left {
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    right: 4.0rem;
+    transform: translateY(-50%);
+}
+
+
+/* 最終確認
+-----------------------------------------------*/
+
+/* カートの内容 テーブル */
+table.tbl_cart {
+    table-layout: fixed;
+    width: 100%;
+}
+
+table.tbl_cart th {
+    color: #CE0000;
+    font-weight: normal;
+    font-size: 1.8rem;
+    padding: 10px 0px;
+    border-bottom: 3px solid #CE0000;
+}
+
+table.tbl_cart td {
+    font-size: 1.8rem;
+    padding :20px 10px;
+    vertical-align: middle;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+td.td_img img {
+    width: 170px;
+}
+
+td.td_name {
+    width: 180px;
+}
+
+td.td_price01 {
+    width: 210px;
+    text-align: right;
+}
+
+.product_qty {
+    display: flex;
+    justify-content: center;
+    gap: 0px;
+    margin-bottom: 10px;
+}
+
+.qty_btn {
+    font-size: 1.8rem;
+    width: 30px;
+    height: 30px;
+    line-height: 26px;
+    background-color: #FFF;
+    border-radius: 2px;
+    border: 1px solid #CCC;
+}
+
+.qty_num {
+    font-size: 1.8rem;
+    min-width: 30px;
+    text-align: center;
+    background-color: #FFF;
+    line-height: 28px;
+    border-radius: 2px;
+    border: 1px solid #CCC;
+}
+
+td.td_delete {
+    width: 170px;
+    text-align: center;
+}
+
+tr.td_total01 td {
+    border-top:2px solid #CCC;
+    text-align: right;
+}
+
+tr.td_total01 td {
+    font-weight: bold;
+    font-size: 18px;
+    padding-top: 15px;
+    border-top: 2px solid #ccc;
+}
+
+table.tbl_cart table tr:nth-child(2) td {
+    padding-top: 30px;
+}
+
+tr.td_total01 td:last-child {
+    text-align: right;
+    color: #CE0000;
+}
+
+/* 住所 テーブル */
+table.tbl_add {
+    width: 100%;
+}
+
+table.tbl_add th{
+    color: #FFF;
+    background-color: #CE0000;
+    font-weight: normal;
+    font-size: 1.8rem;
+    padding: 20px 0px;
+    border :1px solid #fff;
+    vertical-align: middle;
+}
+
+table.tbl_add td{
+    background-color: #FFF;
+    font-weight: normal;
+    font-size: 1.8rem;
+    padding: 20px 20px;
+    border :1px solid #CCC;
+    text-align: left;
+}
+
+/* 購入完了
+-----------------------------------------------*/
+.purchase_in_area03 {
+    margin-bottom: 50px;
+}
+
+.purchase_in_area03 p {
+    text-align :center;
+    font-size: 20px;
+}
+
+.btn_kakunin a {
+    width: 250px;
+    display: block;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+    box-sizing: border-box;
+    text-align: center;
+    line-height: 70px;
+    height: 70px;
+    background-color: #CE0000;
+    color: white;
+    transition: background-color 0.3s, color 0.3s;
+    margin-inline: auto;
+}
+
+.btn_kakunin a:hover {
+    opacity: 0.7;
+}

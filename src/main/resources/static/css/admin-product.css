@@ -1,0 +1,99 @@
+@charset "UTF-8";
+
+/* コンテナ */
+.admin-list-wrap {
+    width: 1000px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-top: #BA8200 8px solid;
+}
+
+.admin-list-wrap h1 {
+    font-size: 2.8rem;
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* 新規登録ボタンのリンク */
+.add-btn-link {
+    display: inline-block;
+    background: #BA8200;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-bottom: 20px;
+    transition: background 0.3s;
+}
+
+.add-btn-link:hover {
+    background: #8e6500;
+}
+
+/* テーブルのデザイン */
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+    font-size: 1.6rem;
+}
+
+.admin-table th {
+    background-color: #f7f3e9;
+    color: #333;
+    padding: 15px;
+    border-bottom: 2px solid #BA8200;
+    text-align: left;
+}
+
+.admin-table td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    color: #555;
+}
+
+/* 行のホバー効果 */
+.admin-table tr:hover {
+    background-color: #fffdf7;
+}
+
+/* チェックボックスの列を中央寄せ */
+.admin-table th:first-child,
+.admin-table td:first-child {
+    text-align: center;
+    width: 60px;
+}
+
+/* 非表示ボタン */
+.btn-hide {
+    padding: 12px 30px;
+    background-color: #CE0000; /* 警告や削除に近いアクションなので赤系 */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.6rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.btn-hide:hover {
+    opacity: 0.8;
+}
+
+.bottom-links {
+    margin-top: 30px;
+    text-align: center;
+    border-top: 1px dotted #ccc;
+    padding-top: 20px;
+}
+
+.bottom-links a {
+    color: #333;
+    text-decoration: underline;
+}

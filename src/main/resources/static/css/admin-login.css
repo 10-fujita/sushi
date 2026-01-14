@@ -1,0 +1,91 @@
+@charset "UTF-8";
+
+/* 管理者ログイン専用スタイル */
+.admin-login-wrap {
+    width: 500px;
+    margin: 80px auto;
+    background: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-top: #BA8200 5px solid; /* ナビと同じ金茶色 */
+}
+
+.admin-login-wrap h1 {
+    font-size: 2.8rem;
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+    font-weight: bold;
+    border-bottom: 2px solid #f7f3e9;
+    padding-bottom: 15px;
+}
+
+.admin-login-wrap form p {
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #555;
+}
+
+/* 入力フィールド */
+.admin-login-wrap input[type="text"],
+.admin-login-wrap input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 1.6rem;
+}
+
+.admin-login-wrap input:focus {
+    outline: none;
+    border-color: #BA8200;
+    background-color: #fffdf7;
+}
+
+/* ログインボタン（オレンジ色） */
+.admin-login-wrap button {
+    width: 100%;
+    padding: 15px;
+    background-color: #F39800; /* ボタンのオレンジ */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.admin-login-wrap button:hover {
+    background-color: #d18300;
+}
+
+/* メッセージ類 */
+.msg-error {
+    color: #CE0000;
+    background: #fff0f0;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+}
+
+.msg-logout {
+    color: #0056b3;
+    background: #f0f7ff;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+}
+
+.back-link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #333;
+    text-decoration: underline;
+}

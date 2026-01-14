@@ -1,0 +1,200 @@
+/* 共通CSSをインポート
+-----------------------------------------------*/
+@import url("/static/css/base.css"); /* base.css を読み込む */
+
+
+
+/* フロー図
+-----------------------------------------------*/
+/* form-nav */
+.progressbar {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom:50px;
+}
+.progressbar .item {
+    position: relative;
+    width: 33%;
+    text-align: center;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    padding: 13px 0;
+    line-height: 1.5;
+    background: #F5F5F5;
+    color: #999999;
+}
+.progressbar .item:not(:last-child)::before,
+.progressbar .item:not(:last-child)::after {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    bottom: 0;
+    left: 100%;
+    content: '';
+    border: 37px solid transparent;
+    border-left: 20px solid #F5F5F5;
+    margin: auto;
+}
+.progressbar .item:not(:last-child)::before {
+    margin-left: 1px;
+    border-left-color: #FFF;
+}
+
+@media screen and (max-width: 767px) {
+.progressbar .item {
+    font-size: 11px;
+    line-height: 1.4;
+    padding: 10px 0;
+}
+.progressbar .item:not(:last-child)::before,
+.progressbar .item:not(:last-child)::after {
+    border-width: 25px;
+    border-left-width: 12px;
+}
+}
+
+/* active */
+.progressbar .item.active {
+    z-index: 1;
+    background: #E8A509;
+    color: #FFF;
+}
+.progressbar .item.active:not(:last-child)::after {
+    border-left-color: #E8A509;
+}
+.progressbar .item.active:not(:last-child)::before {
+    border-left: none;
+}
+
+
+
+/* フォーム
+-----------------------------------------------*/
+.sig_formarea{
+  background-color: #FFF;
+  padding:50px;
+  border-radius: 10px;
+}
+
+.sig_formarea form{
+  width: 720px;
+  margin-inline: auto;
+}
+
+.sig_txtarea{
+  text-align: center;
+  margin-bottom:40px;
+}
+
+.sig_formarea input{
+    width: 500px;
+    height: 40px;
+    padding: 0 8px;
+    border: 2px solid #CCC;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+.form_required {
+  background: #CE0000;
+  color: white;
+  font-size: 12px;
+  padding: 2px 4px;
+  border-radius: 3px;
+  margin-left: 10px;
+}
+
+.sig_form_txt {
+  margin-bottom:40px;
+}
+
+label {
+  display: inline-block;
+  width: 200px;
+  font-weight: bold;
+}
+
+p.form_attention {
+  margin-top: 10px;
+  margin-left: 210px;
+}
+
+.sig_form_dm input{
+  width: 100px;
+}
+
+
+/* ボタン
+-----------------------------------------------*/
+
+.sig_form_btn{
+  text-align:center;
+}
+
+.sig_form_btn button{
+  width: 260px;
+  height: 60px;
+  font-size: 18px;
+  display: inline-block;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 8px;
+  box-sizing: border-box;
+  text-align: center;
+  padding:15px 30px;
+  background-color: #E8A509;
+  border: 2px solid #E8A509;
+  color: white;
+  position: relative;
+}
+
+.sig_form_btn button:hover,
+.sig_form_btn a:hover {
+    opacity: 0.7;
+}
+
+.sig_form_btn {
+  display: flex;
+  justify-content: center; /* 中央寄せ */
+  gap: 60px;              /* ボタン間の余白 */
+  margin-top: 30px;
+}
+
+.sig_form_btn p {
+  margin: 0; /* pのデフォルト余白を消す */
+}
+
+p.btn_left a{
+  width: 260px;
+  height: 62px;
+  line-height: 30px;
+  font-size: 18px;
+  display: inline-block;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 8px;
+  box-sizing: border-box;
+  text-align: center;
+  padding:15px 30px;
+  background-color: white;
+  border: 2px solid #E8A509;
+  color: #E8A509;
+  position: relative;
+}
+
+.fa-position-right {
+    color: #E8A509;
+    position: absolute;
+    top: 50%;
+    left  : 2.5rem;
+    transform: translateY(-50%);
+}
+
+.fa-position-left {
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    right: 2.5rem;
+    transform: translateY(-50%);
+}

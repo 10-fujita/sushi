@@ -1,0 +1,83 @@
+@charset "UTF-8";
+
+/* コンテナ */
+.admin-confirm-wrap {
+    width: 800px;
+    margin: 60px auto;
+    background: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-top: #CE0000 8px solid; /* 警告を意味する赤 */
+}
+
+.admin-confirm-wrap h1 {
+    font-size: 2.6rem;
+    text-align: center;
+    color: #CE0000; /* 見出しも赤字で強調 */
+    margin-bottom: 30px;
+}
+
+.admin-confirm-wrap p {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* 確認用テーブル */
+.confirm-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 30px 0;
+    background-color: #fffdf7;
+}
+
+.confirm-table th {
+    background-color: #f7f3e9;
+    padding: 15px;
+    border: 1px solid #ddd;
+    font-size: 1.6rem;
+}
+
+.confirm-table td {
+    padding: 15px;
+    border: 1px solid #ddd;
+    font-size: 1.6rem;
+    text-align: center;
+}
+
+/* ボタンエリア */
+.confirm-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.btn-danger {
+    padding: 15px 40px;
+    background-color: #CE0000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-danger:hover {
+    background-color: #a00000;
+}
+
+.btn-back {
+    font-size: 1.6rem;
+    color: #666;
+    text-decoration: underline;
+}
+
+.btn-back:hover {
+    color: #333;
+}

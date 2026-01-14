@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+  <div th:replace="~{comlayout/base :: meta}"></div>
+  <div th:replace="~{comlayout/base :: styles}"></div>
+  <!-- Original CSS -->
+  <link rel="stylesheet" th:href="@{/css/purchase.css}">
+  <title>購入完了 | 宅配寿司 寿司処リカレント | お寿司の出前・デリバリー・配達注文</title>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="inner" id="unique_cart_area">
+
+      <div th:replace="~{comlayout/base :: header}"></div>
+      <div th:replace="~{comlayout/base :: nav}"></div>
+
+      <!-- メイン -->
+      <main>
+        <h2 class="mn_h201">カート 購入完了</h2>
+        <ol class="mn_pankuzu">
+          <li><a th:href="@{/}">TOPページ</a></li>
+          <li><a th:href="@{/cart}">カート</a></li>
+          <li><a th:href="@{/}">お届け先を設定</a></li>
+          <li><a th:href="@{/}">最終確認</a></li>
+          <li>購入完了</li>
+        </ol>
+
+        <div class="cart_wrap">
+
+          <!-- フロー図 -->
+          <div class="progressbar">
+            <div class="item">STEP.1<br>購入商品の確認</div>
+            <div class="item">STEP.2<br>お届け先を設定</div>
+            <div class="item">STEP.3<br>最終確認</div>
+            <div class="item active">STEP.4<br>購入完了</div>
+          </div>
+
+          <div class="purchase_in_area03">
+            <p>ご注文ありがとうございます。</p>
+            <p>注文が完了しました。</p>
+            <p>到着までお待ちください。</p>
+          </div>
+
+          <div class="btn_kakunin">
+            <a th:href="@{/}">ご注文内容の確認</a>
+          </div>
+        </div>
+
+
+
+      </main><!-- メイン END -->
+    </div><!-- inner END -->
+
+    <div th:replace="~{comlayout/base :: footer}"></div>
+
+
+
+  </div><!-- wrapper END -->
+</body>
+
+</html>

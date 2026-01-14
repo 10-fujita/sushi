@@ -1,0 +1,163 @@
+/* 共通CSSをインポート
+-----------------------------------------------*/
+@import url("/static/css/base.css"); /* base.css を読み込む */
+
+
+
+/* お客様の声一覧
+-----------------------------------------------*/
+.voice-vi,
+.voice-wr{
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 16px 24px;
+}
+
+/* 見出し */
+.voice-title{
+  text-align:center;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: .04em;
+  margin: 0 0 18px;
+}
+
+/* 一覧の外枠（薄いグレーの枠） */
+.voice-box{
+  border: 1px solid #d9d9d9;
+  background:#fff;
+  padding: 0;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+/* 1件分 */
+.voice-item{
+  display:flex;
+  gap: 16px;                 /* 少し広げる */
+  padding: 18px 16px;        /* 縦余白を増やす */
+  border-top: 1px dashed #cfcfcf;
+  align-items: center;   /* ← これを追加 */
+}
+
+.voice-item:first-child{
+  border-top: none;
+}
+
+/* アイコン */
+.voice-avatar{
+  flex: 0 0 116px;
+  height: 116px;
+  background: #fff url("../images/voc_dicon01.jpg") no-repeat center;
+  background-size: 116px 116px;
+}
+.voice-avatar::before,
+.voice-avatar::after{
+  content:none;   /* 人型を消す */
+}
+
+/* 内容 */
+.voice-content{
+  flex: 1;
+}
+.voice-name{
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.voice-text{
+  font-size: 20px;
+  line-height: 1.7;
+  color:#222;
+  margin-bottom: 4px;
+  white-space: pre-wrap;
+}
+.voice-meta{
+  text-align:right;
+  font-size: 11px;
+  color:#666;
+}
+
+/* 右下ボタン（投稿はこちら） */
+.voice-actions{
+  display:flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+.btn-orange{
+  display:inline-block;
+  background:#E8A509;
+  color:#fff;
+  text-decoration:none;
+  border: none;
+  padding: 20px 40px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 20px;
+  cursor:pointer;
+}
+
+
+.sig_form_btn button:hover,
+.sig_form_btn a:hover {
+    opacity: 0.7;
+}
+
+
+
+
+/* 投稿フォーム側 */
+.form-wrap{
+  display:flex;
+  justify-content:center;
+}
+
+.form-box{
+  width: 1000px;
+  max-width: 100%;
+  margin-top: 10px;
+}
+
+.form-row{
+  margin: 10px 0;
+}
+
+.form-label{
+  display:block;
+  font-weight: 700;
+  font-size: 20px;
+  margin: 0 0 6px;
+}
+
+.form-input,
+.form-textarea{
+  width: 100%;
+  border: 1px solid #cfcfcf;
+  height: 26px;
+  padding: 4px 8px;
+  font-size: 20px;
+  outline: none;
+  margin-bottom: 15px;
+}
+
+.form-textarea{
+  height: 110px;
+  resize: vertical;
+  padding: 8px;
+}
+
+/* 送信ボタン中央 */
+.form-actions{
+  display:flex;
+  justify-content:center;
+  margin-top: 14px;
+}
+
+/* バリデーションエラー */
+.field-error{
+  font-size: 20px;
+  color:#c62828;
+  margin-top: 6px;
+}
+
+

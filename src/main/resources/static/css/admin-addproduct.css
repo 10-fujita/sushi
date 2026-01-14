@@ -1,0 +1,134 @@
+@charset "UTF-8";
+
+/* 商品登録フォームのコンテナ */
+.admin-form-wrap {
+    width: 800px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 40px 60px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-top: #BA8200 8px solid;
+}
+
+.admin-form-wrap h1 {
+    font-size: 2.8rem;
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #f7f3e9;
+    padding-bottom: 15px;
+}
+
+/* フォームの各行のレイアウト */
+.form-row {
+    display: flex;
+    margin-bottom: 20px;
+    align-items: flex-start;
+}
+
+.form-label {
+    width: 200px;
+    font-weight: bold;
+    font-size: 1.6rem;
+    color: #555;
+    padding-top: 10px;
+}
+
+.form-content {
+    flex: 1;
+}
+
+/* 入力要素のスタイル */
+.form-content input[type="text"],
+.form-content input[type="number"],
+.form-content select,
+.form-content textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1.6rem;
+}
+
+.form-content textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+.form-content input:focus,
+.form-content select:focus,
+.form-content textarea:focus {
+    outline: none;
+    border-color: #BA8200;
+    background-color: #fffdf7;
+}
+
+/* エラーメッセージ */
+.error-msg {
+    color: #CE0000;
+    font-size: 1.4rem;
+    margin-top: 5px;
+    display: block;
+}
+
+/* ボタンエリア */
+.form-actions {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.btn-submit {
+    padding: 15px 60px;
+    background-color: #F39800;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-submit:hover {
+    background-color: #d18300;
+}
+
+.btn-cancel {
+    display: inline-block;
+    margin-top: 15px;
+    color: #666;
+    text-decoration: underline;
+}
+
+.admin-menu-list li a:hover {
+    background: #BA8200;
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+}
+
+/* ログアウトボタンのエリア */
+.admin-logout-area {
+    border-top: 2px dotted #ccc;
+    padding-top: 30px;
+    text-align: center;
+}
+
+.btn-logout {
+    padding: 10px 30px;
+    background-color: #666;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.6rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-logout:hover {
+    background-color: #333;
+}

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+  <div th:replace="~{comlayout/base :: meta}"></div>
+  <div th:replace="~{comlayout/base :: styles}"></div>
+  <!-- Original CSS -->
+  <link rel="stylesheet" th:href="@{/css/review.css}">
+  <title>お客様のご意見／ご感想 | 宅配寿司 寿司処リカレント | お寿司の出前・デリバリー・配達注文</title>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="inner" id="unique_review_area">
+      
+      <div th:replace="~{comlayout/base :: header}"></div>
+      <div th:replace="~{comlayout/base :: nav}"></div>
+      
+      <!-- メイン -->
+      <main>
+        <h2 class="mn_h201">お客様のご意見／ご感想</h2>
+        <ol class="mn_pankuzu">
+          <li><a th:href="@{/}">TOPページ</a></li>
+          <li>お客様のご意見／ご感想</li>
+        </ol>
+
+      <section class="voice-vi">
+
+        <div class="voice-box">
+          <!-- 口コミがないとき -->
+          <div class="voice-item" th:if="${reviews == null || #lists.isEmpty(reviews)}">
+            <div class="voice-avatar"></div>
+            <div class="voice-content">
+              <div class="voice-name">お知らせ</div>
+              <div class="voice-text">まだ口コミがありません。</div>
+              <div class="voice-meta"></div>
+            </div>
+          </div>
+
+          <!-- 口コミ一覧 -->
+          <div class="voice-item" th:each="review : ${reviews}" th:if="${reviews != null && !#lists.isEmpty(reviews)}">
+
+            <div class="voice-avatar"></div>
+
+            <div class="voice-content" th:if="${review.isDeleted != true}">
+              <!-- 投稿者名：Userの項目名に合わせて調整（例：name / username / login） -->
+              <div class="voice-name" th:text="${review.user != null ? review.user.name : '匿名'}">投稿者</div>
+
+              <div class="voice-text" th:text="${review.comment}">
+                新鮮で美味しい！すぐに届いて嬉しかったです
+              </div>
+
+              <div class="voice-meta"
+                th:text="${review.createdAt != null ? #temporals.format(review.createdAt, 'yyyy.MM.dd') + '（' + 'ご利用' + '）' : ''}">
+                2025.12.23（おたまじん）
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="voice-actions">
+          <a sec:authorize="isAuthenticated()"
+             th:href="@{/review/new}"
+             class="btn-orange">
+            投稿はこちら
+          </a>
+
+          <a sec:authorize="!isAuthenticated()"
+             th:href="@{/auth/login}"
+             class="btn-orange">
+            ログインして投稿
+          </a>
+          
+        </div>
+      </section>
+      </main><!-- メイン END -->
+    </div><!-- inner END -->
+
+    <div th:replace="~{comlayout/base :: footer}"></div>
+
+
+
+  </div><!-- wrapper END -->
+</body>
+
+</html>

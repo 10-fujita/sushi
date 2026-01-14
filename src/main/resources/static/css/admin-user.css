@@ -1,0 +1,88 @@
+@charset "UTF-8";
+
+/* コンテナ */
+.admin-list-wrap {
+    width: 900px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-top: #BA8200 8px solid;
+}
+
+.admin-list-wrap h1 {
+    font-size: 2.8rem;
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* テーブルのデザイン */
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+    font-size: 1.6rem;
+}
+
+.admin-table th {
+    background-color: #f7f3e9;
+    color: #333;
+    padding: 15px;
+    border-bottom: 2px solid #BA8200;
+    text-align: left;
+}
+
+.admin-table td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    color: #555;
+}
+
+/* 状態ラベルの装飾 */
+.status-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.status-active {
+    background-color: #e6f4ea;
+    color: #1e8e3e; /* 緑：有効 */
+}
+
+.status-withdrawn {
+    background-color: #fce8e6;
+    color: #d93025; /* 赤：停止中 */
+}
+
+/* ボタンとリンク */
+.btn-check {
+    padding: 12px 40px;
+    background-color: #F39800;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.6rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-check:hover {
+    background-color: #d18300;
+}
+
+.bottom-links {
+    margin-top: 30px;
+    text-align: center;
+    border-top: 1px dotted #ccc;
+    padding-top: 20px;
+}
+
+.bottom-links a {
+    color: #333;
+    text-decoration: underline;
+}

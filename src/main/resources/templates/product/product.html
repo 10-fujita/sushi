@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <th:block th:replace="~{comlayout/base :: meta}"></th:block>
+    <th:block th:replace="~{comlayout/base :: styles}"></th:block>
+    <!-- Original CSS -->
+    <link rel="stylesheet" th:href="@{/css/product.css}">
+
+    <title>商品一覧 | 宅配寿司 寿司処リカレント | お寿司の出前・デリバリー・配達注文</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="inner" id="unique_product_area">
+
+            <div th:replace="~{comlayout/base :: header}"></div>
+            <div th:replace="~{comlayout/base :: nav}"></div>
+
+            <!-- メイン -->
+            <main>
+                <h2 class="mn_h201">商品一覧</h2>
+                <ol class="mn_pankuzu">
+                    <li><a th:href="@{/}">TOPページ</a></li>
+                    <li>商品一覧</li>
+                </ol>
+
+                <div class="pro_search_cart">
+                    <!-- 商品の検索エリア -->
+                    <div class="pro_search_wrap">
+                        <h3 class="pro_h301"><img th:src="@{/images/pro_tit_search01.jpg}" alt="商品の検索"></h3>
+                        <div class="pro_search_in">
+                            <!-- キーワード検索 -->
+                            <div class="pro_search01 pro_keyword">
+                                <h4>キーワード検索</h4>
+                                <form th:action="@{/product/search}" method="get">
+                                    <input type="text" name="keyword" th:value="${keyword}"
+                                        placeholder="キーワードを入力してください。">
+                                    <button type="submit">検索</button>
+                                </form>
+                            </div>
+
+                            <!-- 価格帯検索 -->
+                            <div class="pro_search01 pro_price">
+                                <h4>価格帯検索</h4>
+                                <form th:action="@{/product/search}" method="get">
+                                    <input type="number" name="minPrice" th:value="${minPrice}" placeholder="0">
+                                    <span>円～</span>
+                                    <input type="number" name="maxPrice" th:value="${maxPrice}" placeholder="1000">
+                                    <button type="submit">検索</button>
+                                </form>
+                            </div>
+
+                            <!-- カテゴリー検索 -->
+                            <div class="pro_search01 pro_category01">
+                                <h4>カテゴリー検索</h4>
+                                <form th:action="@{/product/search}" method="get">
+                                    <label class="pro_category02">
+                                        <select name="categoryId" th:value="${categoryId}">
+                                            <option value="" th:selected="${categoryId == null}">すべて</option>
+                                            <option value="1" th:selected="${categoryId == 1}">にぎり</option>
+                                            <option value="2" th:selected="${categoryId == 2}">軍艦</option>
+                                            <option value="3" th:selected="${categoryId == 3}">その他</option>
+                                        </select>
+                                    </label>
+                                </form>
+                            </div>
+
+                            <!-- アレルギー情報はこちら -->
+                            <div class="pro_search01 pro_allergy01">
+                                <h4>アレルギーについて</h4>
+                                <a th:href="@{/images/allergy_sushidokoro_recurrent.pdf}" target="_blank">
+                                    <img th:src="@{/images/pro_btn_allergy01.jpg}">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- カートの中身 -->
+                    <div class="pro_cart_wrap">
+                        <h3 class="pro_h301"><img th:src="@{/images/pro_tit_cart01.jpg}" alt="カートの中身"></h3>
+                        <div class="pro_cart_in">
+                            <h4>注文内容</h4>
+                            <table>
+                                <tr>
+                                    <th>選択中</th>
+                                    <td>
+                                        <span id="totalQty">0</span><span>点</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>商品の合計</th>
+                                    <td>
+                                        <span>￥</span><span id="totalPrice">0</span><span>(税込)</span>
+                                    </td>
+                                </tr>
+                            </table>
+                            <form th:action="@{/cart/add}" method="post" id="cartForm">
+                                <div id="hiddenInputs"></div>
+                                <p>
+                                    <button type="submit" style="border:none; background:none; cursor:pointer;">
+                                        <img th:src="@{/images/pro_btn_cart01.png}" alt="カートへ進む">
+                                    </button>
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 商品一覧エリア -->
+                <div class="pro_item_wrap">
+                    <ul class="product_list">
+
+                        <!-- 商品1個 -->
+                        <li th:each="product : ${products}" class="product_card" 
+                            th:data-product-id="${product.id}"
+                            th:data-price="${product.price}"
+                            th:data-category-id="${product.category.id}">
+
+                            <div class="product_img">
+                                <img th:src="@{${product.imageUrl}}" th:alt="${product.name}">
+                            </div>
+
+                            <p th:text="${product.name}"></p>
+                            <p class="dt_price" th:text="${product.price} + '円'"></p>
+
+                            <div class="product_qty">
+                                <button type="button" class="qty_btn minus">ー</button>
+                                <span class="qty_num" 
+                                              th:text="${currentCart != null && currentCart.containsKey(product.id) ? currentCart.get(product.id) : 0}">0</span>
+                                <button type="button" class="qty_btn plus">＋</button>
+                            </div>
+
+                            <div class="product_detail">
+                                <a th:href="@{/product/{id}(id=${product.id})}">
+                                    <img th:src="@{/images/pro_btn_detail01.png}" alt="詳細">
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </main>
+            <div th:replace="~{comlayout/base :: footer}"></div>
+        </div>
+    </div>
+</body>
+
+<!--original-->
+    <script th:src="@{/js/product.js}"></script>

@@ -1,0 +1,130 @@
+@charset "UTF-8";
+
+/* --- ベース設定 --- */
+body {
+    font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* フォーム全体を包むコンテナ */
+.confirm_wrap {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+
+/* --- テーブルの基本設定 --- */
+.confirm-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.confirm-table th, 
+.confirm-table td {
+    padding: 15px;
+    border: 1px solid #eee;
+}
+
+/* --- セクション見出し (お届け先確認 / ご注文商品確認) --- */
+.section-title {
+    background-color: #f9f9f9 !important;
+    text-align: left !important;
+    color: #333 !important;
+    font-size: 1.1rem;
+    border-bottom: 2px solid #d32f2f !important;
+}
+
+.section-title i {
+    color: #d32f2f;
+    margin-right: 8px;
+}
+
+/* --- お届け先情報の行スタイル --- */
+.info-row th {
+    background-color: #f4f4f4;
+    color: #333;
+    width: 25%;
+    text-align: right; /* ラベルは右寄せ */
+    font-weight: bold;
+}
+
+.info-row td {
+    text-align: left; /* 住所などは左寄せ */
+    line-height: 1.8;
+}
+
+/* --- 商品明細のヘッダー --- */
+.product-header th {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+}
+
+/* --- 商品明細のデータ行 --- */
+.product-row td {
+    text-align: center; /* 数量などは中央 */
+}
+
+.product-row td.product-name {
+    text-align: left; /* 商品名だけ左寄せ */
+    font-weight: bold;
+    padding-left: 20px;
+}
+
+.product-row td.price {
+    text-align: right; /* 金額は右寄せ */
+    padding-right: 20px;
+    font-family: "Verdana", sans-serif; /* 数字を見やすく */
+}
+
+/* --- 合計行 --- */
+.total-row {
+    background-color: #fff9f9;
+}
+
+.total-row td {
+    border-top: 2px solid #333;
+    padding: 20px;
+}
+
+.total-label {
+    text-align: right;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.total-price-cell {
+    text-align: right;
+    color: #d32f2f;
+    font-size: 1.6rem;
+    font-weight: bold;
+}
+
+/* --- ボタン --- */
+.confirm-btn {
+    background-color: #d32f2f;
+    color: white;
+    padding: 18px 80px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s, transform 0.1s;
+    box-shadow: 0 4px 0 #a02323;
+}
+
+.confirm-btn:hover {
+    background-color: #b71c1c;
+}
+
+.confirm-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #a02323;
+}

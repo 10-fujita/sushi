@@ -1,0 +1,242 @@
+@charset "UTF-8";
+
+/* フロー図
+-----------------------------------------------*/
+.progressbar {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom:50px;
+}
+
+.progressbar .item {
+    position: relative;
+    width: 25%;
+    text-align: center;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    padding: 13px 0;
+    line-height: 1.5;
+    background: #F5F5F5;
+    color: #999999;
+}
+
+.progressbar .item:not(:last-child)::before,
+.progressbar .item:not(:last-child)::after {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    bottom: 0;
+    left: 100%;
+    content: '';
+    border: 37px solid transparent;
+    border-left: 20px solid #F5F5F5;
+    margin: auto;
+}
+.progressbar .item:not(:last-child)::before {
+    margin-left: 1px;
+    border-left-color: #FFF;
+}
+
+@media screen and (max-width: 767px) {
+.progressbar .item {
+    font-size: 11px;
+    line-height: 1.4;
+    padding: 10px 0;
+}
+.progressbar .item:not(:last-child)::before,
+.progressbar .item:not(:last-child)::after {
+    border-width: 25px;
+    border-left-width: 12px;
+}
+}
+
+/* active */
+.progressbar .item.active {
+    z-index: 1;
+    background: #CE0000;
+    color: #FFF;
+}
+.progressbar .item.active:not(:last-child)::after {
+    border-left-color: #CE0000;
+}
+.progressbar .item.active:not(:last-child)::before {
+    border-left: none;
+}
+
+
+
+/* カートの内容
+-----------------------------------------------*/
+.cart_wrap{
+    background-color: #fff;
+    padding: 50px;
+    border-radius: 10px;
+    margin-bottom: 50px;
+}
+
+.cart_wrap table{
+    table-layout: fixed;
+    width: 100%;
+}
+
+.cart_wrap th {
+    color: #CE0000;
+    font-weight: normal;
+    font-size: 1.8rem;
+    padding: 10px 0px;
+    border-bottom: 3px solid #CE0000;
+}
+
+.cart_wrap td {
+    font-size: 1.8rem;
+    padding :20px 10px;
+    vertical-align: middle;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+td.td_img img {
+    width: 170px;
+}
+
+td.td_name {
+    width: 180px;
+}
+
+td.td_price01 {
+    width: 210px;
+    text-align: right;
+}
+
+.product_qty {
+    display: flex;
+    justify-content: center;
+    gap: 0px;
+    margin-bottom: 10px;
+}
+
+.qty_btn {
+    font-size: 1.8rem;
+    width: 30px;
+    height: 30px;
+    line-height: 26px;
+    background-color: #FFF;
+    border-radius: 2px;
+    border: 1px solid #CCC;
+}
+
+.qty_num {
+    font-size: 1.8rem;
+    min-width: 30px;
+    text-align: center;
+    background-color: #FFF;
+    line-height: 28px;
+    border-radius: 2px;
+    border: 1px solid #CCC;
+}
+
+td.td_delete {
+    width: 170px;
+    text-align: center;
+}
+
+tr.td_total01 td {
+    border-top:2px solid #CCC;
+    text-align: right;
+}
+
+tr.td_total01 td {
+    font-weight: bold;
+    font-size: 18px;
+    padding-top: 15px;
+    border-top: 2px solid #ccc;
+}
+
+.cart_wrap table tr:nth-child(2) td {
+    padding-top: 30px;
+}
+
+tr.td_total01 td:last-child {
+    text-align: right;
+    color: #CE0000;
+}
+
+
+/* ボタン
+-----------------------------------------------*/
+.cart_btnarea {
+    width: 650px;
+    margin-inline: auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.cart_btnarea a{
+    width: 250px;
+    display: inline-block;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 8px;
+}
+
+.btn_product a {
+    text-align: center;
+    line-height: 70px;
+    height: 70px;
+    border: 2px solid #CE0000;
+    background-color: white;
+    color: #CE0000;
+    transition: background-color 0.3s, color 0.3s;
+    position: relative;
+}
+
+.btn_product a:hover {
+    opacity: 0.7;
+}
+
+.btn_purchase a {
+    box-sizing: border-box;
+    text-align: center;
+    line-height: 70px;
+    height: 70px;
+    background-color: #CE0000;
+    color: white;
+    transition: background-color 0.3s, color 0.3s;
+    position: relative;
+}
+
+.btn_purchase a:hover {
+    opacity: 0.7;
+}
+
+.fa-position-right {
+    color: #CE0000;
+    position: absolute;
+    top: 50%;
+    left: 4.0rem;
+    transform: translateY(-50%);
+}
+
+.fa-position-left {
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    right: 4.0rem;
+    transform: translateY(-50%);
+}
+/* 画像を囲うセルの幅を固定 */
+td.td_img {
+    width: 170px; /* セルの横幅 */
+    text-align: center;
+}
+
+/* 画像自体のサイズを固定 */
+td.td_img img {
+    width: 150px;       /* 横幅を固定 */
+    height: 100px;      /* 高さを固定（お好みの高さに調整してください） */
+    object-fit: cover;  /* 重要：縦横比を維持したまま枠いっぱいに表示 */
+    display: block;
+    margin: 0 auto;
+    border-radius: 4px; /* 少し角を丸くすると綺麗に見えます */
+}

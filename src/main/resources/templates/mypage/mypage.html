@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <div th:replace="~{comlayout/base :: meta}"></div>
+    <div th:replace="~{comlayout/base :: styles}"></div>
+    <!-- Original CSS -->
+    <link rel="stylesheet" th:href="@{/css/mypage.css}">
+    <title>マイページ | 宅配寿司 寿司処リカレント | お寿司の出前・デリバリー・配達注文</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="inner" id="unique_mypage_area">
+
+            <div th:replace="~{comlayout/base :: header}"></div>
+            <div th:replace="~{comlayout/base :: nav}"></div>
+
+            <!-- メイン -->
+            <main>
+                <h2 class="mn_h201">マイページ</h2>
+                <ol class="mn_pankuzu">
+                    <li><a th:href="@{/}">TOPページ</a></li>
+                    <li>マイページ</li>
+                </ol>
+
+                <!-- ようこそエリア -->
+                <div class="myp_helloarea">
+                    <p>ようこそ、<span th:text="${user.name}">ゲスト</span>さん</p>
+                    <form th:action="@{/logout}" method="post">
+                        <button type="submit">ログアウト</button>
+                    </form>
+
+                </div>
+
+                <!-- 注文履歴 -->
+                <div class="myp_mnarea">
+                    <div class="myp_mninner">
+                        <div class="mpy_icon">
+                            <img th:src="@{/images/myp_icon01.jpg}">
+                        </div>
+                        <div class="myp_text">
+                            <h3><img th:src="@{/images/myp_tt01.jpg}" alt="注文履歴"></h3>
+                            <p>過去のご注文内容をご確認いただけます。</p>
+                        </div>
+                        <div class="myp_btn">
+                            <a th:href="@{mypage/history}">注文履歴を見る</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="myp_half_wrap">
+
+                    <!-- ご意見／ご感想 -->
+                    <div class="myp_mnarea myp_half">
+                        <div class="myp_mninner">
+                            <div class="mpy_icon">
+                                <img th:src="@{/images/myp_icon02.jpg}">
+                            </div>
+                            <div class="myp_text">
+                                <h3><img th:src="@{/images/myp_tt02.jpg}" alt="ご意見/ご感想"></h3>
+                                <p>お客様のお声をお聞かせください。</p>
+                            </div>
+                            <div class="myp_btn myp_btn_h">
+                                <a th:href="@{/review/new}">投稿する</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 会員情報の編集 -->
+                    <div class="myp_mnarea myp_half">
+                        <div class="myp_mninner">
+                            <div class="mpy_icon">
+                                <img th:src="@{/images/myp_icon03.jpg}">
+                            </div>
+                            <div class="myp_text">
+                                <h3><img th:src="@{/images/myp_tt03.jpg}" alt="会員情報の編集"></h3>
+                                <p>お客様の会員情報を編集できます。</p>
+                            </div>
+                            <div class="myp_btn myp_btn_h">
+                                <a th:href="@{/mypage/editpro}">編集する</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <form th:action="@{/mypage/withdraw}" method="post">
+                    <p class="myp_leave"><button type="submit">退会する</button></p>
+                </form>
+
+
+            </main><!-- メイン END -->
+        </div><!-- inner END -->
+
+        <div th:replace="~{comlayout/base :: footer}"></div>
+
+
+
+    </div><!-- wrapper END -->
+</body>
+
+</html>

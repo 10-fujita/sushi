@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <div th:replace="~{comlayout/base :: meta}"></div>
+    <div th:replace="~{comlayout/base :: styles}"></div>
+    <link rel="stylesheet" th:href="@{/css/purchase.css}">
+    <title>お届け先を設定 | 宅配寿司 寿司処リカレント</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="inner" id="unique_cart_area">
+            <div th:replace="~{comlayout/base :: header}"></div>
+            <div th:replace="~{comlayout/base :: nav}"></div>
+
+            <main>
+                <h2 class="mn_h201">カート 最終確認</h2>
+                <ol class="mn_pankuzu">
+                    <li><a th:href="@{/}">TOPページ</a></li>
+                    <li><a th:href="@{/cart}">カート</a></li>
+                    <li>お届け先を設定</li>
+                </ol>
+
+                <div class="cart_wrap">
+                    <div class="progressbar">
+                        <div class="item">STEP.1<br>購入商品の確認</div>
+                        <div class="item active">STEP.2<br>お届け先を設定</div>
+                        <div class="item">STEP.3<br>最終確認</div>
+                        <div class="item">STEP.4<br>購入完了</div>
+                    </div>
+
+                    <form th:action="@{/purchase/confirm}" method="post" th:object="${orderForm}">
+
+                        <div class="purchase_in_area01">
+                            <h3>お届け先住所</h3>
+                            <p>お届け先の住所を下記からお選びください。</p>
+                            <table>
+                                <tr>
+                                    <th>会員情報ご登録住所</th>
+                                    <td>
+                                        <div th:if="${not #lists.isEmpty(address1)}">
+                                            <select id="saved-address-selector" name="savedAddressIndex"
+                                                style="width: 100%; padding: 8px; margin-bottom: 10px;">
+                                                <option th:each="addr, iterStat : ${address1}"
+                                                    th:value="${iterStat.index}"
+                                                    th:text="'〒' + ${addr.postalCode} + ' ' + ${addr.prefecture} + ${addr.city} + ${addr.addressLine1}"
+                                                    th:attr="data-zip=${addr.postalCode},
+                                                             data-pref=${addr.prefecture},
+                                                             data-city=${addr.city},
+                                                             data-line1=${addr.addressLine1},
+                                                             data-line2=${addr.addressLine2}">
+                                                </option>
+                                            </select>
+
+                                            <div id="address-detail-display"
+                                                style="font-size: 0.9em; color: #555; background: #f9f9f9; padding: 10px; border-radius: 4px;">
+                                                <p id="display-zip" th:text="'〒' + ${address1[0].postalCode}"></p>
+                                                <p id="display-addr"
+                                                    th:text="${address1[0].prefecture} + ${address1[0].city} + ${address1[0].addressLine1} + ' ' + ${address1[0].addressLine2}">
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div th:unless="${not #lists.isEmpty(address1)}" style="color: #999;">
+                                            登録住所がありません
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input type="radio" th:field="*{addressSelect}" value="1" id="radio1"
+                                            th:disabled="${#lists.isEmpty(address1)}">
+                                        <label for="radio1">選択</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>前回利用した住所</th>
+                                    <td>
+                                        <div th:if="${address2 != null}">
+                                            <p th:text="'〒' + ${address2.shippingPostalCode}">郵便番号</p>
+                                            <p>
+                                                <span th:text="${address2.shippingPrefecture}"></span>
+                                                <span th:text="${address2.shippingCity}"></span>
+                                                <span th:text="${address2.shippingAddressLine1}"></span>
+                                                <span th:text="${address2.shippingAddressLine2}"></span>
+                                            </p>
+                                        </div>
+                                        <div th:if="${address2 == null}" style="color: #999;">
+                                            利用履歴がありません
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input type="radio" th:field="*{addressSelect}" value="2" id="radio2"
+                                            th:disabled="${address2 == null}">
+                                        <label for="radio2">選択</label>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>新しく入力する住所</th>
+                                    <td>
+                                        <div id="new-address-form-area"
+                                            style="display: none; margin-top: 10px; border-top: 1px dotted #ccc; padding-top: 10px;">
+                                            <p>
+                                                <label>郵便番号：</label>
+                                                <input type="text" th:field="*{postalCode}" id="ybbg"
+                                                    autocomplete="off">
+                                            </p>
+                                            <p>
+                                                <label>都道府県：</label>
+                                                <input type="text" th:field="*{prefecture}" id="tdhnm"
+                                                    autocomplete="off">
+                                            </p>
+                                            <p>
+                                                <label>市区町村：</label>
+                                                <input type="text" th:field="*{city}" id="adr1" autocomplete="off">
+                                            </p>
+                                            <p>
+                                                <label>番地：</label>
+                                                <input type="text" th:field="*{addressLine1}" id="adr2"
+                                                    autocomplete="off">
+                                            </p>
+                                            <p>
+                                                <label>建物名・部屋番号：</label>
+                                                <input type="text" th:field="*{addressLine2}" autocomplete="off">
+                                            </p>
+                                            <p id="ybbgError" style="color:red;"></p>
+                                        </div>
+
+                                        <div id="new-address-placeholder" style="color: #888;">「選択」を押すと入力フォームが表示されます
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <input type="radio" th:field="*{addressSelect}" value="3" id="radio3"
+                                            class="address-radio">
+                                        <label for="radio3">選択</label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+
+                        <div class="purchase_in_area01">
+                            <h3>ご希望のお届け日時</h3>
+                            <p>ご希望のお届け日時をご指定ください。</p>
+
+                            <select th:field="*{deliveryDate}">
+                                <option value="">お届け日を選択してください</option>
+                                <option th:each="date : ${dateList}" th:value="${date}"
+                                    th:text="${#temporals.format(date, 'MM月dd日')}">
+                                </option>
+                            </select>
+
+                            <select th:field="*{deliveryTimeSlot}">
+                                <option value="">時間を選択してください</option>
+                                <option th:each="time : ${timeSlots}" th:value="${time}" th:text="${time}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="purchase_in_area01"
+                            style="margin-top: 20px; border-top: 2px solid #eee; padding-top: 20px;">
+                            <h3>お届け先情報</h3>
+                            <p>お届け先の宛名と連絡先電話番号を入力してください。</p>
+
+                            <div style="margin-bottom: 15px;">
+                                <label style="display: block; font-weight: bold; margin-bottom: 5px;">お届け先氏名：</label>
+                                <input type="text" th:field="*{recipientName}" class="form-input"
+                                    placeholder="例：リカレント 太郎"
+                                    style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                                <p th:if="${#fields.hasErrors('recipientName')}" th:errors="*{recipientName}"
+                                    style="color:red; font-size: 0.9em;"></p>
+                            </div>
+
+                            <div style="margin-bottom: 15px;">
+                                <label style="display: block; font-weight: bold; margin-bottom: 5px;">ご連絡先電話番号：</label>
+                                <input type="text" th:field="*{phoneNumber}" class="form-input"
+                                    placeholder="例：09012345678"
+                                    style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                                <p th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"
+                                    style="color:red; font-size: 0.9em;"></p>
+                            </div>
+                        </div>
+
+                        <div class="cart_btnarea">
+                            <div class="btn_product">
+                                <a th:href="@{/cart}"><i
+                                        class="fas fa-angle-double-left fa-position-right"></i>カートに戻る</a>
+                            </div>
+                            <div class="btn_purchase">
+                                <button type="submit"
+                                    style="background: none; border: none; color: inherit; cursor: pointer; width: 100%; height: 100%;">
+                                    最終確認へ<i class="fas fa-angle-double-right fa-position-left"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </main>
+        </div>
+
+        <div th:replace="~{comlayout/base :: footer}"></div>
+    </div>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        const currentHour = /*[[${currentHour}]]*/ 0;
+        /*]]>*/
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script th:src="@{/js/ybbg.js}"></script>
+</body>
+
+</html>

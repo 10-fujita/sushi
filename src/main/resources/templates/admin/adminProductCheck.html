@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <div th:replace="~{comlayout/base :: meta}"></div>
+  <div th:replace="~{comlayout/base :: styles}"></div>
+  <link rel="stylesheet" th:href="@{/css/admin-productcheck.css}">
+  <title>商品非表示確認 | 寿司処リカレント</title>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="inner">
+      <div th:replace="~{comlayout/base :: header}"></div>
+
+      <main>
+        <div class="admin-confirm-wrap">
+          <h1>以下の商品を非表示にしますか？</h1>
+          <p style="text-align: center; font-size: 1.6rem;">非表示にすると、お客様の注文画面に表示されなくなります。</p>
+
+          <table class="confirm-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>商品名</th>
+                <th>現在の価格</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="product : ${productList}">
+                <td th:text="${product.id}"></td>
+                <td th:text="${product.name}"></td>
+                <td th:text="${#numbers.formatInteger(product.price, 3, 'COMMA') + '円'}"></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="confirm-actions">
+            <form th:action="@{/admin/disableProduct}" method="post">
+                <button type="submit" class="btn-danger">はい、非表示にします</button>
+            </form>
+            
+            <a th:href="@{/admin/productManagement}" class="btn-back">いいえ、戻ります</a>
+          </div>
+        </div>
+      </main>
+
+      <div th:replace="~{comlayout/base :: footer}"></div>
+    </div>
+  </div>
+</body>
+</html>

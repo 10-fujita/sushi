@@ -1,0 +1,223 @@
+@charset "UTF-8";
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6rem;
+  font-family: "Source Sans Pro", "Hiragino Kaku Gothic ProN", "メイリオ", "Meiryo", "Arial", sans-serif;
+}
+
+p {
+  margin-bottom: 10px;
+}
+
+a {
+  text-decoration: none;
+}
+
+label {
+  margin-right: 5px;
+}
+
+.wrapper {
+  background: #f7f3e9;
+  border-top: #CE0000 15px solid;
+  box-sizing: border-box;  /* ボーダー、内余白を高さに合わせて調節してくれる */
+}
+
+.inner {
+  width: 1200px;
+  margin-inline: auto;
+}
+
+/* ヘッダーの設定
+-----------------------------------------------------------------------------*/
+header {
+  width: 1200px;
+  height: 120px;
+  margin-inline: auto;
+  padding-top: 20px;
+  display: -webkit-flex;
+  display: flex;
+  justify-content: space-between;
+}
+
+header h1 a{
+  border: none;
+}
+
+.hd_copy {
+  margin-top: 40px;
+  text-align: right;
+  font-size: 24px;
+}
+
+p.hd_copy01 {
+  padding-right: 30px;
+  margin-bottom: 10px;
+}
+
+
+/* ナビゲーション
+-----------------------------------------------------------------------------*/
+nav {
+  width: 1200px;
+  height: 75px;
+  margin-inline: auto;
+  margin-bottom: 15px;
+}
+
+nav ul {
+  display: flex;
+  justify-content: space-between;
+  column-gap: 0px;  /* 間隔の設定 */
+  list-style: none;
+}
+
+nav a {
+  width: 300px;
+  height: 75px;
+  display: block;
+  text-indent: -9999px; /* ← テキスト非表示 */
+  overflow: hidden;
+  background-size: 100% 100%;
+}
+
+nav a:hover {background-size: 100% 100%;}
+
+/* ナビゲーションボタン */
+a.nav_cart {background-image: url(../images/nv_cart.jpg);}
+a.nav_product {background-image: url(../images/nv_product.jpg);}
+a.nav_login {background-image: url(../images/nv_login.jpg);}
+a.nav_voice {background-image: url(../images/nv_voice.jpg);}
+
+/* ナビゲーションボタン 該当ページ時 */
+#unique_cart_area a.nav_cart {background-image: url(../images/nv_cart_on.jpg);}
+#unique_cart_area a.nav_login {background-image: url(../images/nv_login_on03.jpg);} /* ログイン時マイページ */
+#unique_mypage_area a.nav_login {background-image: url(../images/nv_login_on02.jpg);} /* マイページ */
+#unique_signup_area a.nav_login {background-image: url(../images/nv_login_on04.jpg);} /* 新規会員登録画面 */
+#unique_product_area a.nav_product {background-image: url(../images/nv_product_on.jpg);}
+#unique_login_area a.nav_login {background-image: url(../images/nv_login_on01.jpg);}
+#unique_review_area a.nav_voice {background-image: url(../images/nv_voice_on.jpg);}
+a.nav_log_mypageoff {background-image: url(../images/nv_login_on03.jpg);}
+#unique_mypage_area a.nav_log_mypageoff {background-image: url(../images/nv_login_on02.jpg);} /* マイページ */
+
+/* ナビゲーションボタン ホバー時 */
+a.nav_cart:hover {background-image: url(../images/nv_cart_on.jpg);}
+a.nav_product:hover {background-image: url(../images/nv_product_on.jpg);}
+a.nav_login:hover {background-image: url(../images/nv_login_on01.jpg);}
+a.nav_voice:hover {background-image: url(../images/nv_voice_on.jpg);}
+a.nav_log_mypageoff {background-image: url(../images/nv_login_on01.jpg);}
+#unique_mypage_area a.nav_login:hover {background-image: url(../images/nv_login_on01.jpg);}
+
+
+/* メインエリア
+-----------------------------------------------------------------------------*/
+main {
+  margin-bottom: 60px;
+}
+
+main h2.mn_h201 {
+  color: #fff;
+  font-size: 35px;
+  height: 125px;
+  font-weight: bold;
+  background-color: #BA8200;
+  padding-left: 40px;
+  line-height: 125px;
+  margin-bottom: 30px;
+}
+
+/* パンくず */
+ol.mn_pankuzu {
+  color:#333333;
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin-bottom: 30px;
+}
+
+ol.mn_pankuzu a {
+  color:#333333;
+}
+
+ol.mn_pankuzu a:hover {
+  color:#333333;
+  border-bottom: 1px solid #333;
+}
+
+ol.mn_pankuzu li:not(:last-of-type)::after {
+  content: "›";
+  margin: 0 .6em; /* 記号の左右の余白 */
+  color: #333333; /* 記号の色 */
+}
+
+
+/* フッター
+-----------------------------------------------------------------------------*/
+footer {
+  width: 100%;
+}
+
+.ft_sitemap {
+  background-color: #BA8200;
+  padding: 60px 0px;
+}
+
+/* フッターサイトマップ UL 共通 */
+.ft_sitemap ul {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  list-style: none;
+  padding: 0;
+}
+
+/* LI の間に縦線 */
+.ft_sitemap ul li {
+  position: relative;
+  padding-right: 14px; 
+  margin-right: 14px;
+}
+
+/* 縦線を表示 */
+.ft_sitemap ul li::after {
+  content: "|";
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: #fff;
+  opacity: 0.8;
+}
+
+/* 各行（ul）の最後だけ縦線を消す */
+.ft_sitemap ul li:last-child::after {
+  content: "";
+}
+
+ul.smul01 {
+  margin-bottom: 15px;
+}
+
+.ft_sitemap a {
+  color: #fff;
+  font-size: 1.7rem;  /* 17px */
+  text-decoration: none;
+}
+.ft_sitemap a:hover{
+  color: #CE0000;
+}
+
+.ft_copy {
+  color: #fff;
+  padding: 5px;
+  background-color: #CE0000;
+  text-align: center;
+}
+
+footer small {
+  font-size: 1rem;
+}
+

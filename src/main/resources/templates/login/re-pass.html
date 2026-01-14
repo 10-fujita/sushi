@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <div th:replace="~{comlayout/base :: meta}"></div>
+  <div th:replace="~{comlayout/base :: styles}"></div>
+  <link rel="stylesheet" th:href="@{/css/login.css}">
+  <title>パスワード再設定 | 宅配寿司 寿司処リカレント</title>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="inner" id="unique_login_area">
+
+      <div th:replace="~{comlayout/base :: header}"></div>
+      <div th:replace="~{comlayout/base :: nav}"></div>
+
+      <main>
+        <h2 class="mn_h201">パスワード再設定</h2>
+        <ol class="mn_pankuzu">
+          <li><a th:href="@{/}">TOPページ</a></li>
+          <li><a th:href="@{/auth/login}">ログイン</a></li>
+          <li>パスワード再設定メール送信</li>
+        </ol>
+
+        <div class="log_area">
+          <p style="margin-bottom: 20px;">
+            ご登録済みのメールアドレスを入力してください。<br>
+            パスワード再設定用のリンクを送信します。
+          </p>
+
+          <p th:if="${successMessage}" style="color: green; font-weight: bold; margin-bottom: 20px;">
+            <span th:text="${successMessage}"></span>
+          </p>
+
+          <form th:action="@{/auth/re-pass}" method="post">
+            <div class="log_form">
+              <p><label>メールアドレス</label></p>
+              <input type="email" name="email" required placeholder="example@recurrent.jp">
+            </div>
+            
+            <p th:if="${errorMessage}" class="log_error" style="color: red;">
+              <span th:text="${errorMessage}"></span>
+            </p>
+
+            <div class="sig_form_btn">
+              <button type="submit">送信する</button>
+            </div>
+          </form>
+
+          <div class="sig_form_btn" style="margin-top: 20px;">
+            <a th:href="@{/auth/login}">ログイン画面に戻る</a>
+          </div>
+        </div>
+      </main>
+
+    </div><div th:replace="~{comlayout/base :: footer}"></div>
+  </div></body>
+</html>

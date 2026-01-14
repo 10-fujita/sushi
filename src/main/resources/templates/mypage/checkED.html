@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+  <div th:replace="~{comlayout/base :: meta}"></div>
+  <div th:replace="~{comlayout/base :: styles}"></div>
+  <!-- Original CSS -->
+  <link rel="stylesheet" th:href="@{/css/mypage.css}">
+  <title>編集内容の確認 | マイページ | 宅配寿司 寿司処リカレント | お寿司の出前・デリバリー・配達注文</title>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="inner" id="unique_mypage_area">
+
+
+      <div th:replace="~{comlayout/base :: header}"></div>
+      <div th:replace="~{comlayout/base :: nav}"></div>
+
+      <!-- メイン -->
+      <main>
+        <h2 class="mn_h201">マイページ　編集内容の確認</h2>
+        <ol class="mn_pankuzu">
+          <li><a th:href="@{/}">TOPページ</a></li>
+          <li><a th:href="@{/mypage}">マイページ</a></li>
+          <li>会員情報を編集</li>
+          <li>編集内容の確認</li>
+        </ol>
+
+        <div class="sig_formarea">
+
+          <!-- フロー図 -->
+          <div class="progressbar">
+            <div class="item">STEP.1<br>会員情報を編集</div>
+            <div class="item active">STEP.2<br>ご確認</div>
+            <div class="item">STEP.3<br>完了(マイページへ)</div>
+          </div>
+
+          <form th:action="@{/mypage/save}" method="post">
+             <!-- お名前 -->
+             <div class="sig_form_txt">
+               <label>お名前<span class="form_required">必須</span></label>
+               <span th:text="${userUpdateForm.name }"></span>
+             </div>
+
+             <!-- メールアドレス -->
+             <div class="sig_form_txt">
+               <label>メールアドレス<span class="form_required">必須</span></label>
+             <span th:text="${userUpdateForm.email}"></span>
+             </div>
+
+            <!-- パスワード -->
+            <div class="sig_form_txt">
+              <label>パスワード<span class="form_required">必須</span></label>
+              ******
+              <p class="form_attention">半角英数4文字以上で入力してください。</p>
+            </div>
+
+            <!-- 電話番号 -->
+                  <div class="sig_form_txt">
+                    <label>電話番号</label>
+                    <span th:text="${userUpdateForm.phoneNumber }"></span>
+                  </div>
+
+                  <!-- 郵便番号 -->
+                             <div class="sig_form_txt">
+                               <label>郵便番号<span class="form_required">必須</span></label>
+                               <span th:text="${userUpdateForm.postalCode }"></span>
+                             </div>
+
+                             <!-- 都道府県 -->
+                             <div class="sig_form_txt">
+                               <label>都道府県<span class="form_required">必須</span></label>
+                              <span th:text="${userUpdateForm.prefecture }"></span>
+                             </div>
+
+                             <!-- 住所１ -->
+                             <div class="sig_form_txt">
+                               <label>市区町村<span class="form_required">必須</span></label>
+                               <span th:text="${userUpdateForm.city }"></span>
+                             </div>
+                             
+                             <!-- 住所２ -->
+                             <div class="sig_form_txt">
+                               <label>番地<span class="form_required">必須</span></label>
+                               <span th:text="${userUpdateForm.addressLine1 }"></span>
+                             </div>
+
+                             <!-- 住所３ -->
+                             <div class="sig_form_txt">
+                               <label>建物名、部屋番号</label>
+                               <span th:text="${userUpdateForm.addressLine2 }"></span>
+                             </div>
+
+            <div class="sig_form_btn">
+              <p><button type="submit">編集内容を登録する<i class="fas fa-angle-double-right fa-position-left"></i></button></p>
+            </div>
+        </div>
+        </form>
+
+      </main><!-- メイン END -->
+    </div><!-- inner END -->
+
+    <div th:replace="~{comlayout/base :: footer}"></div>
+
+
+
+  </div><!-- wrapper END -->
+</body>
+
+</html>

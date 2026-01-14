@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+  <div th:replace="~{comlayout/base :: meta}"></div>
+  <div th:replace="~{comlayout/base :: styles}"></div>
+  <!-- Original CSS -->
+  <link rel="stylesheet" th:href="@{/css/cart.css}">
+  <title>エラー | 宅配寿司 寿司処リカレント | お寿司の出前・デリバリー・配達注文</title>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="inner" id="unique_cart_area">
+
+      <div th:replace="~{comlayout/base :: header}"></div>
+      <div th:replace="~{comlayout/base :: nav}"></div>
+
+      <main>
+        <h2 class="mn_h201">エラー</h2>
+        <!-- SpringBootが自動で渡してくれる変数(status,message etc) -->
+        <p>状態コード：<span th:text="${status}"></span></p>
+        <p>エラーメッセージ：<span th:text="${message}"></span></p>
+        <!-- 独自メッセージ(Controllerなどからsetしたメッセージ) -->
+        <p th:if="${errMsg}">
+          詳細：<span th:text="${errMsg}"></span>
+        </p>
+      </main><!-- メイン END -->
+    </div><!-- inner END -->
+
+    <div th:replace="~{comlayout/base :: footer}"></div>
+
+
+
+  </div><!-- wrapper END -->
+</body>
+
+</html>
