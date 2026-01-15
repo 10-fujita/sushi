@@ -199,10 +199,11 @@
         <div th:replace="~{comlayout/base :: footer}"></div>
     </div>
     <script th:inline="javascript">
-    /*<![CDATA[*/
-        // Javaから送られた今の時間をJavaScriptの変数に入れる
-        const currentDateTime = /*[[${currentDateTime}]]*/ "";
-    /*]]>*/
+        /*<![CDATA[*/
+        // Javaのmodel.addAttribute("currentDateTime", ...) を受け取る
+        const currentDateTime = /*[[${currentDateTime}]]*/ null;
+        console.log("受け取った時間:", currentDateTime); // 確認用にログを出す
+        /*]]>*/
     </script>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
