@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -91,8 +92,10 @@ public class PurchaseController {
         
         // ★【重要】ここを追加！最初に画面を開いた時も「今の時間」を教える
         model.addAttribute("currentDateTime", LocalDateTime.now().toString());
-
-        model.addAttribute("orderForm", new OrderForm());
+     // 新しい注文フォーム（紙）を作る
+        OrderForm orderForm = new OrderForm();
+        orderForm.setAddressSelect("1"); // デフォルトで「会員登録住所」を選択
+        model.addAttribute("orderForm",orderForm);
 
         return "purchase/purchase-inf";
     }
@@ -117,58 +120,75 @@ public class PurchaseController {
         return "purchase/purchase-in"; // templates/purchase/purchase-in.html
     }*/
     @PostMapping("/purchase/confirm")
-    public String confirmPurchase( @ModelAttribute("orderForm") OrderForm orderForm,
+    public String confirmPurchase(@Valid @ModelAttribute("orderForm") OrderForm orderForm,
         BindingResult bindingResult,
         HttpSession session,
         Model model, 
         @AuthenticationPrincipal UserDetailsImpl principal
-        ) {String email = principal.getUsername();
+    ) {
+        String email = principal.getUsername();
         User user = userService.findByEmail(email);
-    if (bindingResult.hasErrors()) {
-      //エラー時の処理
-   // --- ここから追加：画面表示に必要なデータを再セット ---
-      model.addAttribute("address1", user.getAddresses());
-      
-      List<Order> latestOrder = orderService.findOrdersByEmail(email); 
-      model.addAttribute("address2", (latestOrder != null && !latestOrder.isEmpty()) ? latestOrder.get(0) : null);
 
-      // 日付リスト（30日分）
-      List<LocalDate> dateList = new ArrayList<>();
-      LocalDate today = LocalDate.now();
-      for (int i = 0; i < 31; i++) { dateList.add(today.plusDays(i)); }
-      
-   // エラー時の処理の中で時間を計算して削っている部分を、シンプルな10-22時のリストに変えます
+        // --- ★ここから追加：選ばれた住所を orderForm にセットする ---
+        
+        // 1. 「会員登録住所」が選ばれた場合
+        if ("1".equals(orderForm.getAddressSelect())) {
+            List<UserAddress> addresses = user.getAddresses();
+            if (addresses != null && !addresses.isEmpty()) {
+                // 現在のプルダウン選択に関わらず、まずは1番目の住所をセットする場合
+                UserAddress addr = addresses.get(0); 
+                orderForm.setPostalCode(addr.getPostalCode());
+                orderForm.setPrefecture(addr.getPrefecture());
+                orderForm.setCity(addr.getCity());
+                orderForm.setAddressLine1(addr.getAddressLine1());
+                orderForm.setAddressLine2(addr.getAddressLine2());
+            }
+        } 
+        // 2. 「前回利用した住所」が選ばれた場合
+        else if ("2".equals(orderForm.getAddressSelect())) {
+            List<Order> latestOrders = orderService.findOrdersByEmail(email);
+            if (latestOrders != null && !latestOrders.isEmpty()) {
+                Order last = latestOrders.get(0);
+                orderForm.setPostalCode(last.getShippingPostalCode());
+                orderForm.setPrefecture(last.getShippingPrefecture());
+                orderForm.setCity(last.getShippingCity());
+                orderForm.setAddressLine1(last.getShippingAddressLine1());
+                orderForm.setAddressLine2(last.getShippingAddressLine2());
+            }
+        }
+        // ※「3. 新しく入力する」の場合は、すでに入力欄から値が入っているのでそのままでOK
+        
+        // --- ★追加ここまで ---
 
-      List<String> timeSlots = new ArrayList<>();
-      for (int h = 10; h <= 22; h++) {
-          timeSlots.add(String.format("%02d:00", h));
-      }
-      // 順番を整える
-      java.util.Collections.sort(timeSlots);
+        // バリデーションエラーがある場合の処理（既存のまま）
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("address1", user.getAddresses());
+            List<Order> latestOrder = orderService.findOrdersByEmail(email); 
+            model.addAttribute("address2", (latestOrder != null && !latestOrder.isEmpty()) ? latestOrder.get(0) : null);
 
-      model.addAttribute("timeSlots", timeSlots);
-      // JavaScriptが計算に使う「今の時間」を渡す
-      model.addAttribute("currentDateTime", LocalDateTime.now().toString());
+            List<LocalDate> dateList = new ArrayList<>();
+            LocalDate today = LocalDate.now();
+            for (int i = 0; i < 31; i++) { dateList.add(today.plusDays(i)); }
+            
+            List<String> timeSlots = new ArrayList<>();
+            for (int h = 10; h <= 22; h++) { timeSlots.add(String.format("%02d:00", h)); }
+            
+            model.addAttribute("dateList", dateList);
+            model.addAttribute("timeSlots", timeSlots);
+            model.addAttribute("currentDateTime", LocalDateTime.now().toString());
+            model.addAttribute("orderForm", orderForm);
+            return "purchase/purchase-inf";
+        }
 
-      model.addAttribute("dateList", dateList);
-      model.addAttribute("timeSlots", timeSlots);
-      model.addAttribute("orderForm", orderForm);
-
-      return "purchase/purchase-inf";
-    }
-        // カートアイテムを取得
-        List<CartItem> cartItems = cartService.findCartItems(principal.getUser());
-        // 合計金額を計算
+        // カート情報の取得（既存のまま）
+        List<CartItem> cartItems = cartService.findCartItems(user);
         int totalPrice = cartService.calcTotal(cartItems);
         
-        // モデルにデータを追加
         model.addAttribute("cartItems", cartItems);
         model.addAttribute("totalPrice", totalPrice);
-        model.addAttribute("orderForm", orderForm);
+        model.addAttribute("orderForm", orderForm); // 住所を詰め直した orderForm を渡す
         
-        return "purchase/purchase-in"; // templates/purchase/confirm.html
-        
-        
+        return "purchase/purchase-in";
     }
     @PostMapping("/purchase/complete")
     public String completePurchase(@ModelAttribute OrderForm orderForm, Model model, @AuthenticationPrincipal
