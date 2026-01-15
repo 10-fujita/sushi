@@ -61,43 +61,40 @@ public class PurchaseController {
      */
     @GetMapping("/purchase/purchase-inf")
     public String purchaseInf(Model model, @AuthenticationPrincipal UserDetailsImpl principal) {
-     // ログインユーザーの住所情報を取得
-     String email = principal.getUsername();
-      User user = userService.findByEmail(email);
-      List<UserAddress> addresses =user.getAddresses(); // 住所情報を取得
-      model.addAttribute("address1", addresses);// 住所情報を取得
-      
-      List<Order> latestOrder = orderService.findOrdersByEmail(email); 
-   // 2. リストが空でなければ、最初の1件（最新）を取得してモデルに入れる
-      if (latestOrder != null && !latestOrder.isEmpty()) {
-          model.addAttribute("address2", latestOrder.get(0)); // 最新の注文情報をモデルに追加
-      } else {
-          model.addAttribute("address2", null);
-      }
-      
-   // 1. 日付のリストを作成 (今日から30日後まで)
-      List<LocalDate> dateList = new ArrayList<>();
-      LocalDate today = LocalDate.now();
-      for (int i = 0; i < 31; i++) {
-          dateList.add(today.plusDays(i));
-      }
+        String email = principal.getUsername();
+        User user = userService.findByEmail(email);
+        List<UserAddress> addresses = user.getAddresses();
+        model.addAttribute("address1", addresses);
 
-   // --- 時間のリスト作成 (修正版) ---
-      List<String> timeSlots = new ArrayList<>();
-      for (int h = 10; h <= 22; h++) {
-          timeSlots.add(String.format("%02d:00", h));
-      }
-      model.addAttribute("timeSlots", timeSlots);
-      // 現在の時間をJavaScriptに教えるために、今の「時」をモデルに入れる
-      model.addAttribute("currentHour", java.time.LocalTime.now().getHour());
-      // 時間順に並び替え
-      java.util.Collections.sort(timeSlots);
+        List<Order> latestOrder = orderService.findOrdersByEmail(email);
+        if (latestOrder != null && !latestOrder.isEmpty()) {
+            model.addAttribute("address2", latestOrder.get(0));
+        } else {
+            model.addAttribute("address2", null);
+        }
 
-      model.addAttribute("dateList", dateList);
-      model.addAttribute("timeSlots", timeSlots);
-      model.addAttribute("orderForm", new OrderForm());
-      
-        return "purchase/purchase-inf"; // templates/purchase/purchase-inf.html
+        List<LocalDate> dateList = new ArrayList<>();
+        LocalDate today = LocalDate.now();
+        for (int i = 0; i < 31; i++) {
+            dateList.add(today.plusDays(i));
+        }
+
+        // --- 時間のリスト作成 ---
+        List<String> timeSlots = new ArrayList<>();
+        for (int h = 10; h <= 22; h++) {
+            timeSlots.add(String.format("%02d:00", h));
+        }
+        java.util.Collections.sort(timeSlots);
+
+        model.addAttribute("dateList", dateList);
+        model.addAttribute("timeSlots", timeSlots);
+        
+        // ★【重要】ここを追加！最初に画面を開いた時も「今の時間」を教える
+        model.addAttribute("currentDateTime", LocalDateTime.now().toString());
+
+        model.addAttribute("orderForm", new OrderForm());
+
+        return "purchase/purchase-inf";
     }
 
     /**
@@ -140,18 +137,23 @@ public class PurchaseController {
       LocalDate today = LocalDate.now();
       for (int i = 0; i < 31; i++) { dateList.add(today.plusDays(i)); }
       
-      // 時間リスト
-      LocalDateTime start = LocalDateTime.now().plusHours(3);
+   // エラー時の処理の中で時間を計算して削っている部分を、シンプルな10-22時のリストに変えます
+
       List<String> timeSlots = new ArrayList<>();
-      for (int i = 0; i < 24; i++) {
-          String time = start.plusHours(i).format(java.time.format.DateTimeFormatter.ofPattern("HH:00"));
-          if (!timeSlots.contains(time)) { timeSlots.add(time); }
+      for (int h = 10; h <= 22; h++) {
+          timeSlots.add(String.format("%02d:00", h));
       }
+      // 順番を整える
       java.util.Collections.sort(timeSlots);
+
+      model.addAttribute("timeSlots", timeSlots);
+      // JavaScriptが計算に使う「今の時間」を渡す
+      model.addAttribute("currentDateTime", LocalDateTime.now().toString());
 
       model.addAttribute("dateList", dateList);
       model.addAttribute("timeSlots", timeSlots);
       model.addAttribute("orderForm", orderForm);
+
       return "purchase/purchase-inf";
     }
         // カートアイテムを取得

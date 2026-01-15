@@ -199,9 +199,10 @@
         <div th:replace="~{comlayout/base :: footer}"></div>
     </div>
     <script th:inline="javascript">
-        /*<![CDATA[*/
-        const currentHour = /*[[${currentHour}]]*/ 0;
-        /*]]>*/
+    /*<![CDATA[*/
+        // Javaから送られた今の時間をJavaScriptの変数に入れる
+        const currentDateTime = /*[[${currentDateTime}]]*/ "";
+    /*]]>*/
     </script>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"

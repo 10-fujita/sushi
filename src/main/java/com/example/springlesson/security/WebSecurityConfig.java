@@ -47,8 +47,8 @@ public class WebSecurityConfig {
     http
  // 1. CSRF設定（Webhookを除外）
     .csrf((csrf) -> csrf
-        .ignoringRequestMatchers("/api/stripe/webhook") // WebhookをCSRF対象外にする
-        .ignoringRequestMatchers("/api/stripe/checkout") // CheckoutもJSから叩くなら除外しておくと安全
+        // 「/api/stripe/」から始まるURLは全部CSRFチェックしなくていいよ！という設定
+        .ignoringRequestMatchers("/api/stripe/**")
     )
         .authorizeHttpRequests((requests) -> requests
             .requestMatchers("/css/**", "/images/**", "/js/**", "/storage/**").permitAll() // すべてのユーザーにアクセスを許可するURL
