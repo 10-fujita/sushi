@@ -93,7 +93,7 @@ public class StripeController {
     // Stripe Checkout セッション作成
     SessionCreateParams.Builder paramsBuilder = SessionCreateParams.builder()
         .setMode(SessionCreateParams.Mode.PAYMENT)
-        .setSuccessUrl("https://sushi-a2gn.onrender.com//purchase/purchase-out")
+        .setSuccessUrl("https://sushi-a2gn.onrender.com/purchase/purchase-out")
         .setCancelUrl("https://sushi-a2gn.onrender.com//cancel")
         .putMetadata("orderId", order.getId().toString()); // ←大文字 M
 
