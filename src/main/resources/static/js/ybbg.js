@@ -1,4 +1,3 @@
-
 // 3. 登録済み住所のプルダウン切り替えイベント
 $('#saved-address-selector').on('change', function() {
     const selectedOption = $(this).find('option:selected');
@@ -58,50 +57,49 @@ function filterOrders(status) {
     });
 }
 function updateTimeSlots() {
-    // もし currentHour が定義されていなければ何もしない（エラー防止）
-    if (typeof currentHour === 'undefined') {
-        return;
-    }
-
+    // 1. 必要なものが揃っているか確認
+    if (!currentDateTime) return;
     const dateSelect = document.getElementById('deliveryDate');
     const timeSelect = document.getElementById('deliveryTimeSlot');
-
     if (!dateSelect || !timeSelect) return;
 
+    // 2. 「今」と「3時間後」の時間を準備
+    const now = new Date(currentDateTime);
+    const limitTime = new Date(now.getTime() + 3 * 60 * 60 * 1000); // 今 + 3時間
+    
+    // 「今日」を YYYY-MM-DD の形にする (例: 2026-01-15)
+    const todayStr = now.getFullYear() + "-" + 
+                     String(now.getMonth() + 1).padStart(2, '0') + "-" + 
+                     String(now.getDate()).padStart(2, '0');
+
     const selectedDate = dateSelect.value;
-
-    // 今日の日付を取得
-    const now = new Date();
-    const y = now.getFullYear();
-    const m = String(now.getMonth() + 1).padStart(2, '0');
-    const d = String(now.getDate()).padStart(2, '0');
-
-    // スラッシュ形式とハイフン形式の両方を用意
-    const todaySlash = `${y}/${m}/${d}`;
-    const todayHyphen = `${y}-${m}-${d}`;
-
-    const limitHour = currentHour + 3;
     const options = timeSelect.options;
 
+    // 3. 全ての選択肢をループしてチェック
     for (let i = 1; i < options.length; i++) {
-        const slotHour = parseInt(options[i].value.split(':')[0]);
-
-        // selectedDateが「今日（スラッシュまたはハイフン）」と一致するか判定
-        if (selectedDate === todaySlash || selectedDate === todayHyphen) {
-            if (slotHour < limitHour) {
-                options[i].style.display = 'none';
+        const time = options[i].value; // "10:00" など
+        
+        if (selectedDate === todayStr) {
+            // --- 今日が選ばれている場合 ---
+            // 選択肢の時間を日付型にする
+            const slotDateTime = new Date(`${selectedDate}T${time}:00`);
+            
+            if (slotDateTime < limitTime) {
+                options[i].style.display = 'none'; // 3時間以内は隠す
             } else {
-                options[i].style.display = 'block';
+                options[i].style.display = 'block'; // それ以降は見せる
             }
         } else {
-            // 今日以外（明日以降）なら全て表示
-            options[i].style.display = 'block';
+            // --- 明日以降が選ばれている場合 ---
+            options[i].style.display = 'block'; // 全部見せる
         }
     }
 
-    // 隠された時間が選択されていたらリセット
-    if (timeSelect.selectedIndex !== -1 && options[timeSelect.selectedIndex].style.display === 'none') {
-        timeSelect.value = "";
+    // 4. もし今選んでいる時間が「隠された時間」だったらリセット
+    if (timeSelect.selectedIndex !== -1) {
+        if (options[timeSelect.selectedIndex].style.display === 'none') {
+            timeSelect.value = "";
+        }
     }
 }
 /* 郵便番号API */
