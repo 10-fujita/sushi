@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -120,7 +119,7 @@ public class PurchaseController {
         return "purchase/purchase-in"; // templates/purchase/purchase-in.html
     }*/
     @PostMapping("/purchase/confirm")
-    public String confirmPurchase(@Valid @ModelAttribute("orderForm") OrderForm orderForm,
+    public String confirmPurchase( @ModelAttribute("orderForm") OrderForm orderForm,
         BindingResult bindingResult,
         HttpSession session,
         Model model, 
@@ -155,6 +154,17 @@ public class PurchaseController {
                 orderForm.setAddressLine1(last.getShippingAddressLine1());
                 orderForm.setAddressLine2(last.getShippingAddressLine2());
             }
+        }
+     // 2. 手動で「名前」と「電話番号」だけチェックする（住所はコピーしたからOK）
+        if (orderForm.getRecipientName() == null || orderForm.getRecipientName().isEmpty()) {
+            bindingResult.rejectValue("recipientName", "error.recipientName", "お届け先氏名を入力してください");
+        }
+        if (orderForm.getPhoneNumber() == null || orderForm.getPhoneNumber().isEmpty()) {
+            bindingResult.rejectValue("phoneNumber", "error.phoneNumber", "電話番号を入力してください");
+        }
+        // 住所が埋まっていない場合（3番を選んで入力し忘れた時など）
+        if (orderForm.getPostalCode() == null || orderForm.getPostalCode().isEmpty()) {
+            bindingResult.rejectValue("postalCode", "error.postalCode", "住所情報を選択または入力してください");
         }
         // ※「3. 新しく入力する」の場合は、すでに入力欄から値が入っているのでそのままでOK
         

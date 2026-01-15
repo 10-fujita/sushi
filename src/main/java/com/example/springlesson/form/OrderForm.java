@@ -12,24 +12,24 @@ import lombok.Data;
 @Data
 public class OrderForm {
 
-    @NotBlank
+    @NotBlank(message = "宛先名を入力してください。")
     private String recipientName;
 
-    @NotBlank
+    @NotBlank(message = "郵便番号を入力してください。")
     private String postalCode;
 
-    @NotBlank
+    @NotBlank(message = "都道府県を入力してください。")
     private String prefecture;
 
-    @NotBlank
+    @NotBlank(message = "市区町村を入力してください。")
     private String city;
 
-    @NotBlank
+    @NotBlank(message = "番地を入力してください。")
     private String addressLine1;
 
     private String addressLine2;
 
-    @NotBlank
+    @NotBlank(message = "送り先の電話番号を入力してください。")
     private String phoneNumber;
 
     @NotNull
