@@ -93,8 +93,8 @@ public class StripeController {
     // Stripe Checkout セッション作成
     SessionCreateParams.Builder paramsBuilder = SessionCreateParams.builder()
         .setMode(SessionCreateParams.Mode.PAYMENT)
-        .setSuccessUrl("http://localhost:8080/springlesson/purchase/purchase-out")
-        .setCancelUrl("http://localhost:8080/springlesson/cancel")
+        .setSuccessUrl("https://sushi-a2gn.onrender.com/springlesson/purchase/purchase-out")
+        .setCancelUrl("https://sushi-a2gn.onrender.com/springlesson/cancel")
         .putMetadata("orderId", order.getId().toString()); // ←大文字 M
 
     for (CartItem cartItem : cartItems) {

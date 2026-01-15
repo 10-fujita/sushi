@@ -245,7 +245,7 @@ $(document).ready(function() {
     });
 
     // 初期実行（もし最初からプルダウンがある場合は反映させる）
-    if ($('#saved-address-selector').length) {
-        $('#saved-address-selector').trigger('change');
-    }
+    //if ($('#saved-address-selector').length) {
+       // $('#saved-address-selector').trigger('change');
+   // }
 });
