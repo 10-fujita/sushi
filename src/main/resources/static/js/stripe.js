@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const formData = new FormData(form);
     const jsonData = Object.fromEntries(formData.entries());
     console.log("実際に送るデータ:", jsonData); // ← これをチェック！
-    fetch("/springlesson/api/stripe/checkout", {
+    fetch("/api/stripe/checkout", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
