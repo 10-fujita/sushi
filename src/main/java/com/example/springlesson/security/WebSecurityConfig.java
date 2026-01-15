@@ -53,7 +53,7 @@ public class WebSecurityConfig {
         .authorizeHttpRequests((requests) -> requests
             .requestMatchers("/css/**", "/images/**", "/js/**", "/storage/**").permitAll() // すべてのユーザーにアクセスを許可するURL
             .requestMatchers("/", "/login", "/login/**", "/auth/**").permitAll()
-            .requestMatchers("/review", "/product/**").permitAll()
+            .requestMatchers("/review", "/product/**", "/product/**").permitAll()
             // --- 【追加】StripeのAPIを許可（認証済みユーザーのみ） ---
             .requestMatchers("/api/stripe/checkout").authenticated()
          // Webhook は Stripeサーバーから来るので permitAll()
