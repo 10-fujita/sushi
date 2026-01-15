@@ -98,8 +98,13 @@
                         <input type="hidden" th:field="*{addressLine1}">
                         <input type="hidden" th:field="*{addressLine2}">
                         <input type="hidden" th:field="*{phoneNumber}">
-                        <input type="hidden" th:field="*{deliveryDate}">
-                        <input type="hidden" th:field="*{deliveryTimeSlot}">
+						<input type="hidden"
+						       name="deliveryDate"
+						       th:value="${orderForm.deliveryDate}">
+
+						<input type="hidden"
+						       name="deliveryTimeSlot"
+						       th:value="${orderForm.deliveryTimeSlot}">
 
                         <div style="text-align: center; margin-top: 30px;">
                             <button type="button" id="checkout-btn"
