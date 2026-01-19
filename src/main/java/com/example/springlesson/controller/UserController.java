@@ -3,6 +3,8 @@ package com.example.springlesson.controller;
 import java.security.Principal;
 import java.util.List;
 
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
@@ -86,8 +88,9 @@ public class UserController {
     }
     /** 退会 */
     @PostMapping("/withdraw")
-    public String withdraw(Principal principal) {
+    public String withdraw(Principal principal,HttpServletRequest request)throws ServletException {
         userService.withdraw(principal.getName());
+        request.logout();
         return "login/login";
     }
 }
